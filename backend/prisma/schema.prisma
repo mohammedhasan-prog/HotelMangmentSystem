@@ -7,15 +7,15 @@ datasource db {
 }
 
 model User {
-  id         String    @id @default(uuid())
-  email      String    @unique
-  password   String
-  firstName  String
-  lastName   String
-  role       String    @default("CUSTOMER")
-  bookings   Booking[]
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id        String    @id @default(uuid())
+  email     String    @unique
+  password  String
+  firstName String
+  lastName  String
+  role      String    @default("CUSTOMER")
+  bookings  Booking[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Hotel {
@@ -26,6 +26,7 @@ model Hotel {
   description String?
   rating      Float     @default(0)
   amenities   String    @default("[]")
+  photos      String    @default("[]")
   rooms       Room[]
   bookings    Booking[]
   createdAt   DateTime  @default(now())
@@ -40,29 +41,30 @@ model Room {
   price     Float
   capacity  Int       @default(2)
   amenities String    @default("[]")
+  photos    String    @default("[]")
   bookings  Booking[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
 
 model Booking {
-  id              String    @id @default(uuid())
-  reservationNum  String    @unique @default(uuid())
-  userId          String
-  user            User      @relation(fields: [userId], references: [id])
-  hotelId         String
-  hotel           Hotel     @relation(fields: [hotelId], references: [id])
-  roomId          String
-  room            Room      @relation(fields: [roomId], references: [id])
-  checkInDate     DateTime
-  checkOutDate    DateTime
-  guests          Int
-  totalAmount     Float
-  status          String    @default("PENDING")
-  promotionId     String?
-  promotion       Promotion?    @relation(fields: [promotionId], references: [id])
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  id             String     @id @default(uuid())
+  reservationNum String     @unique @default(uuid())
+  userId         String
+  user           User       @relation(fields: [userId], references: [id])
+  hotelId        String
+  hotel          Hotel      @relation(fields: [hotelId], references: [id])
+  roomId         String
+  room           Room       @relation(fields: [roomId], references: [id])
+  checkInDate    DateTime
+  checkOutDate   DateTime
+  guests         Int
+  totalAmount    Float
+  status         String     @default("PENDING")
+  promotionId    String?
+  promotion      Promotion? @relation(fields: [promotionId], references: [id])
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
 }
 
 model Promotion {

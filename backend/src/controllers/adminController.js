@@ -10,9 +10,19 @@ const normalizeAmenities = (value) => {
   return JSON.stringify([]);
 };
 
+const normalizePhotos = (value) => {
+  if (Array.isArray(value)) return JSON.stringify(value);
+  if (typeof value === 'string' && value.trim().startsWith('[')) return value;
+  if (typeof value === 'string' && value.trim()) {
+    return JSON.stringify(value.split(',').map((item) => item.trim()).filter(Boolean));
+  }
+
+  return JSON.stringify([]);
+};
+
 exports.createHotel = async (req, res, next) => {
   try {
-    const { name, city, location, description, rating, amenities } = req.body;
+    const { name, city, location, description, rating, amenities, photos } = req.body;
 
     if (!name || !city || !location) {
       return res.status(400).json({
@@ -29,6 +39,7 @@ exports.createHotel = async (req, res, next) => {
         description,
         rating: rating ?? 0,
         amenities: normalizeAmenities(amenities),
+        photos: normalizePhotos(photos),
       },
     });
 
@@ -43,7 +54,7 @@ exports.createHotel = async (req, res, next) => {
 
 exports.updateRoom = async (req, res, next) => {
   try {
-    const { type, price, capacity, amenities } = req.body;
+    const { type, price, capacity, amenities, photos } = req.body;
 
     const room = await prisma.room.findUnique({ where: { id: req.params.id } });
 
@@ -61,6 +72,7 @@ exports.updateRoom = async (req, res, next) => {
         ...(price !== undefined ? { price: Number(price) } : {}),
         ...(capacity !== undefined ? { capacity: Number(capacity) } : {}),
         ...(amenities !== undefined ? { amenities: normalizeAmenities(amenities) } : {}),
+        ...(photos !== undefined ? { photos: normalizePhotos(photos) } : {}),
       },
     });
 

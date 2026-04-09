@@ -78,6 +78,10 @@ async function main() {
       description: 'Luxury city hotel with rooftop lounge and airport pickup.',
       rating: 4.6,
       amenities: json(['wifi', 'pool', 'gym', 'restaurant', 'airport-shuttle']),
+      photos: json([
+        'https://images.unsplash.com/photo-1566073771259-6a8506099945',
+        'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa',
+      ]),
       rooms: {
         create: [
           {
@@ -85,18 +89,24 @@ async function main() {
             price: 95,
             capacity: 1,
             amenities: json(['wifi', 'ac', 'breakfast']),
+            photos: json(['https://images.unsplash.com/photo-1618773928121-c32242e63f39']),
           },
           {
             type: 'Double',
             price: 140,
             capacity: 2,
             amenities: json(['wifi', 'ac', 'city-view', 'breakfast']),
+            photos: json([
+              'https://images.unsplash.com/photo-1590490360182-c33d57733427',
+              'https://images.unsplash.com/photo-1631049307264-da0ec9d70304',
+            ]),
           },
           {
             type: 'Suite',
             price: 260,
             capacity: 4,
             amenities: json(['wifi', 'ac', 'living-area', 'bathtub']),
+            photos: json(['https://images.unsplash.com/photo-1591088398332-8a7791972843']),
           },
         ],
       },
@@ -112,6 +122,10 @@ async function main() {
       description: 'Beachfront resort with sea-view rooms and family packages.',
       rating: 4.4,
       amenities: json(['wifi', 'beach-access', 'spa', 'pool', 'restaurant']),
+      photos: json([
+        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',
+        'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b',
+      ]),
       rooms: {
         create: [
           {
@@ -119,12 +133,14 @@ async function main() {
             price: 160,
             capacity: 2,
             amenities: json(['wifi', 'sea-view', 'balcony']),
+            photos: json(['https://images.unsplash.com/photo-1578683010236-d716f9a3f461']),
           },
           {
             type: 'Family Suite',
             price: 290,
             capacity: 5,
             amenities: json(['wifi', 'sea-view', 'kitchenette', 'living-area']),
+            photos: json(['https://images.unsplash.com/photo-1611892440504-42a792e24d32']),
           },
         ],
       },
@@ -140,6 +156,10 @@ async function main() {
       description: 'Quiet retreat near tea gardens with mountain-facing balconies.',
       rating: 4.3,
       amenities: json(['wifi', 'garden', 'restaurant', 'parking', 'bonfire']),
+      photos: json([
+        'https://images.unsplash.com/photo-1445019980597-93fa8acb246c',
+        'https://images.unsplash.com/photo-1470165525439-3cf9cf4f0a1b',
+      ]),
       rooms: {
         create: [
           {
@@ -147,18 +167,21 @@ async function main() {
             price: 130,
             capacity: 2,
             amenities: json(['wifi', 'balcony', 'garden-view']),
+            photos: json(['https://images.unsplash.com/photo-1455587734955-081b22074882']),
           },
           {
             type: 'Family Room',
             price: 210,
             capacity: 4,
             amenities: json(['wifi', 'two-bedrooms', 'living-area']),
+            photos: json(['https://images.unsplash.com/photo-1578683010236-d716f9a3f461']),
           },
           {
             type: 'Honeymoon Suite',
             price: 280,
             capacity: 2,
             amenities: json(['wifi', 'private-dining', 'jacuzzi']),
+            photos: json(['https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd']),
           },
         ],
       },
@@ -174,6 +197,10 @@ async function main() {
       description: 'Classic-style hotel with business amenities and conference hall.',
       rating: 4.1,
       amenities: json(['wifi', 'conference-room', 'gym', 'restaurant', 'parking']),
+      photos: json([
+        'https://images.unsplash.com/photo-1496417263034-38ec4f0b665a',
+        'https://images.unsplash.com/photo-1484154218962-a197022b5858',
+      ]),
       rooms: {
         create: [
           {
@@ -181,18 +208,21 @@ async function main() {
             price: 110,
             capacity: 1,
             amenities: json(['wifi', 'work-desk', 'breakfast']),
+            photos: json(['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267']),
           },
           {
             type: 'Executive Double',
             price: 175,
             capacity: 2,
             amenities: json(['wifi', 'work-desk', 'city-view']),
+            photos: json(['https://images.unsplash.com/photo-1505693416388-ac5ce068fe85']),
           },
           {
             type: 'Presidential Suite',
             price: 340,
             capacity: 4,
             amenities: json(['wifi', 'living-area', 'meeting-space', 'bathtub']),
+            photos: json(['https://images.unsplash.com/photo-1571896349842-33c89424de2d']),
           },
         ],
       },
@@ -208,6 +238,10 @@ async function main() {
       description: 'Boutique stay with lake-view cottages and kayaking activities.',
       rating: 4.5,
       amenities: json(['wifi', 'lake-view', 'kayak', 'restaurant', 'parking']),
+      photos: json([
+        'https://images.unsplash.com/photo-1468824357306-a439d58ccb1c',
+        'https://images.unsplash.com/photo-1505691938895-1758d7feb511',
+      ]),
       rooms: {
         create: [
           {
@@ -215,18 +249,21 @@ async function main() {
             price: 145,
             capacity: 2,
             amenities: json(['wifi', 'lake-view', 'private-deck']),
+            photos: json(['https://images.unsplash.com/photo-1566665797739-1674de7a421a']),
           },
           {
             type: 'Premium Cottage',
             price: 225,
             capacity: 3,
             amenities: json(['wifi', 'lake-view', 'private-deck', 'sofa-bed']),
+            photos: json(['https://images.unsplash.com/photo-1560185127-6ed189bf02f4']),
           },
           {
             type: 'Lakefront Villa',
             price: 360,
             capacity: 6,
             amenities: json(['wifi', 'kitchen', 'private-garden', 'barbecue']),
+            photos: json(['https://images.unsplash.com/photo-1570129477492-45c003edd2be']),
           },
         ],
       },

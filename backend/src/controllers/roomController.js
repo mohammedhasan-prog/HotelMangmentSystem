@@ -12,6 +12,16 @@ const parseAmenities = (raw) => {
   }
 };
 
+const parsePhotos = (raw) => {
+  if (!raw) return [];
+
+  try {
+    return JSON.parse(raw);
+  } catch (error) {
+    return [];
+  }
+};
+
 exports.getAvailability = async (req, res, next) => {
   try {
     const { checkInDate, checkOutDate, city, hotelId, guests } = req.query;
@@ -71,9 +81,11 @@ exports.getAvailability = async (req, res, next) => {
         rooms: rooms.map((room) => ({
           ...room,
           amenities: parseAmenities(room.amenities),
+          photos: parsePhotos(room.photos),
           hotel: {
             ...room.hotel,
             amenities: parseAmenities(room.hotel.amenities),
+            photos: parsePhotos(room.hotel.photos),
           },
         })),
       },

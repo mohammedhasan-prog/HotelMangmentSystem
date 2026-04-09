@@ -11,6 +11,17 @@ const parseAmenities = (raw) => {
   }
 };
 
+const parsePhotos = (raw) => {
+  if (!raw) return [];
+  if (Array.isArray(raw)) return raw;
+
+  try {
+    return JSON.parse(raw);
+  } catch (error) {
+    return [];
+  }
+};
+
 exports.getHotels = async (req, res, next) => {
   try {
     const page = Number(req.query.page) || 1;
@@ -58,6 +69,7 @@ exports.getHotels = async (req, res, next) => {
         hotels: hotels.map((hotel) => ({
           ...hotel,
           amenities: parseAmenities(hotel.amenities),
+          photos: parsePhotos(hotel.photos),
         })),
       },
     });
@@ -88,9 +100,11 @@ exports.getHotelById = async (req, res, next) => {
         hotel: {
           ...hotel,
           amenities: parseAmenities(hotel.amenities),
+          photos: parsePhotos(hotel.photos),
           rooms: hotel.rooms.map((room) => ({
             ...room,
             amenities: parseAmenities(room.amenities),
+            photos: parsePhotos(room.photos),
           })),
         },
       },
