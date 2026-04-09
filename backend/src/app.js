@@ -2,10 +2,15 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocs = require('./config/swagger');
 const routes = require('./routes/index');
 const { errorHandler } = require('./middlewares/errorHandler');
 
 const app = express();
+
+// Swagger API Documentation setup
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Set HTTP security headers
 app.use(helmet());
