@@ -21,34 +21,87 @@ function parsePhotos(raw) {
 function HotelsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [hotels, setHotels] = useState([]);
+  const [pagination, setPagination] = useState({
+    page: 1,
+    limit: 6,
+    total: 0,
+    totalPages: 1,
+  });
   const [loading, setLoading] = useState(true);
   const [newsletterEmail, setNewsletterEmail] = useState('');
 
   const city = searchParams.get('city') || '';
+  const page = Math.max(Number(searchParams.get('page') || 1), 1);
+  const checkIn = searchParams.get('checkIn') || '';
+  const checkOut = searchParams.get('checkOut') || '';
+  const guests = Math.max(Number(searchParams.get('guests') || 2), 1);
+  const rooms = Math.max(Number(searchParams.get('rooms') || 1), 1);
 
   const query = useMemo(() => {
     const p = new URLSearchParams();
     if (city) p.set('city', city);
-    p.set('limit', '24');
+    p.set('limit', String(pagination.limit));
+    p.set('page', String(page));
     return p.toString();
-  }, [city]);
+  }, [city, page, pagination.limit]);
 
   useEffect(() => {
     setLoading(true);
     api.get(`/hotels?${query}`)
-      .then((data) => setHotels(data?.data?.hotels || []))
+      .then((data) => {
+        setHotels(data?.data?.hotels || []);
+        setPagination((prev) => ({
+          ...prev,
+          ...(data?.pagination || {}),
+        }));
+      })
       .finally(() => setLoading(false));
   }, [query]);
 
-  const listingHotels = hotels.slice(0, 6);
   const shownCity = city || 'London';
+  const totalHotelsFound = pagination.total || hotels.length;
+  const dateSummary = checkIn && checkOut ? `${checkIn} - ${checkOut}` : 'Select Dates';
+  const computedTotalPages = useMemo(() => {
+    if (pagination.totalPages) return pagination.totalPages;
+    const limit = Number(pagination.limit || 6);
+    const total = Number(pagination.total || 0);
+    return Math.max(Math.ceil(total / Math.max(limit, 1)), 1);
+  }, [pagination]);
+
+  const pageButtons = useMemo(() => {
+    const totalPages = Math.max(computedTotalPages || 1, 1);
+    const current = Math.min(page, totalPages);
+
+    if (totalPages <= 5) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    if (current <= 3) {
+      return [1, 2, 3, 'ellipsis', totalPages];
+    }
+
+    if (current >= totalPages - 2) {
+      return [1, 'ellipsis', totalPages - 2, totalPages - 1, totalPages];
+    }
+
+    return [1, 'ellipsis', current, 'ellipsis', totalPages];
+  }, [page, computedTotalPages]);
+
+  const updatePage = (nextPage) => {
+    const totalPages = Math.max(computedTotalPages || 1, 1);
+    const safePage = Math.max(1, Math.min(nextPage, totalPages));
+
+    const nextParams = new URLSearchParams(searchParams);
+    nextParams.set('page', String(safePage));
+    setSearchParams(nextParams);
+  };
 
   return (
     <div className="stack-lg hl-shell">
       <header className="hl-head">
         <p>Destinations <span>›</span> United Kingdom <span>›</span> {shownCity}</p>
-        <h1>{hotels.length || 0} hotels found in {shownCity}</h1>
-        <small>Oct 12-15 • 2 Adults • 1 Room</small>
+        <h1>{totalHotelsFound} hotels found in {shownCity}</h1>
+        <small>{dateSummary} • {guests} Guests • {rooms} Room{rooms > 1 ? 's' : ''}</small>
       </header>
 
       <div className="hl-layout">
@@ -87,7 +140,7 @@ function HotelsPage() {
 
           {loading ? <p>Loading hotels...</p> : (
             <div className="hl-list">
-              {listingHotels.map((hotel, index) => {
+              {hotels.map((hotel, index) => {
                 const photos = parsePhotos(hotel.photos);
                 const image = photos[0] || 'https://images.unsplash.com/photo-1566073771259-6a8506099945';
                 const firstPrice = Number(hotel.rooms?.[0]?.price || 0);
@@ -131,13 +184,38 @@ function HotelsPage() {
           )}
 
           <div className="hl-pagination">
-            <button type="button"><FiChevronLeft size={14} /></button>
-            <button className="active" type="button">1</button>
-            <button type="button">2</button>
-            <button type="button">3</button>
-            <button type="button">…</button>
-            <button type="button">12</button>
-            <button type="button"><FiChevronRight size={14} /></button>
+            <button
+              type="button"
+              disabled={page <= 1}
+              onClick={() => updatePage(page - 1)}
+              aria-label="Previous page"
+            >
+              <FiChevronLeft size={14} />
+            </button>
+
+            {pageButtons.map((item, idx) => (
+              item === 'ellipsis' ? (
+                <button key={`ellipsis-${idx}`} type="button" disabled className="ellipsis">…</button>
+              ) : (
+                <button
+                  key={item}
+                  type="button"
+                  className={item === page ? 'active' : ''}
+                  onClick={() => updatePage(Number(item))}
+                >
+                  {item}
+                </button>
+              )
+            ))}
+
+            <button
+              type="button"
+              disabled={page >= Math.max(computedTotalPages || 1, 1)}
+              onClick={() => updatePage(page + 1)}
+              aria-label="Next page"
+            >
+              <FiChevronRight size={14} />
+            </button>
           </div>
         </section>
       </div>

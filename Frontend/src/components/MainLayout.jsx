@@ -1,5 +1,5 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Button, Chip, Stack } from '@mui/material';
+import { Button } from '@mui/material';
 import { FiLogOut, FiUser } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 
@@ -21,20 +21,28 @@ function MainLayout({ children }) {
           <NavLink to="/" end>Hotels</NavLink>
           <NavLink to="/dashboard">Bookings</NavLink>
           <a href="#hp-footer">Help</a>
-          {user?.role === 'ADMIN' && <NavLink to="/admin">Admin Panel</NavLink>}
+          {user?.role === 'ADMIN' && <NavLink to="/admin/manage-hotels">Admin Panel</NavLink>}
         </nav>
 
         <div className="nav-actions">
           {isAuthenticated ? (
-            <Stack direction="row" spacing={1} alignItems="center">
-              <Chip icon={<FiUser size={14} />} label={user?.firstName || user?.email} color="primary" variant="outlined" />
-              <Button variant="outlined" color="inherit" startIcon={<FiLogOut />} onClick={handleLogout}>Sign Out</Button>
-            </Stack>
+            <>
+              <span className="nav-user-pill">
+                <FiUser size={13} />
+                {user?.firstName || user?.email}
+              </span>
+              <Button className="nav-signout-btn" variant="outlined" color="inherit" startIcon={<FiLogOut />} onClick={handleLogout}>
+                Sign Out
+              </Button>
+            </>
           ) : (
-            <Stack direction="row" spacing={1} alignItems="center">
-              <Button component={Link} to="/auth" variant="text" color="inherit">Sign In</Button>
-              <Button component={Link} to="/auth" variant="contained" color="primary">Register</Button>
-            </Stack>
+            <>
+              <Button component={Link} to="/auth" className="nav-signin-btn" variant="text" color="inherit">Sign In</Button>
+              <Button component={Link} to="/auth" className="nav-register-btn" variant="contained" color="primary">Register</Button>
+              <Link to="/auth" className="nav-profile-btn" aria-label="Open account">
+                <FiUser size={13} />
+              </Link>
+            </>
           )}
         </div>
       </header>

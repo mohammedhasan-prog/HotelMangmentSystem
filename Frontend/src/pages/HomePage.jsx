@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { motion } from 'framer-motion';
 import { FiCalendar, FiGlobe, FiMail, FiMapPin, FiSearch, FiShare2, FiUsers } from 'react-icons/fi';
@@ -19,7 +19,15 @@ function parsePhotos(raw) {
 }
 
 function HomePage() {
+  const navigate = useNavigate();
   const [hotels, setHotels] = useState([]);
+  const [searchForm, setSearchForm] = useState({
+    city: '',
+    checkIn: '',
+    checkOut: '',
+    guests: 2,
+    rooms: 1,
+  });
 
   useEffect(() => {
     api.get('/hotels?limit=3')
@@ -31,6 +39,18 @@ function HomePage() {
   const secondaryHotels = hotels.slice(1, 3);
 
   const featuredImage = parsePhotos(featuredHotel?.photos)[0] || 'https://images.unsplash.com/photo-1571896349842-33c89424de2d';
+
+  const onSearch = () => {
+    const params = new URLSearchParams();
+    if (searchForm.city.trim()) params.set('city', searchForm.city.trim());
+    if (searchForm.checkIn) params.set('checkIn', searchForm.checkIn);
+    if (searchForm.checkOut) params.set('checkOut', searchForm.checkOut);
+    params.set('guests', String(searchForm.guests));
+    params.set('rooms', String(searchForm.rooms));
+    params.set('page', '1');
+
+    navigate(`/hotels?${params.toString()}`);
+  };
 
   return (
     <div className="stack-lg hp-shell">
@@ -48,17 +68,55 @@ function HomePage() {
           <div className="hp-search-strip">
             <div>
               <FiMapPin size={14} />
-              <span>Where are you going?</span>
+              <input
+                className="hp-search-input"
+                value={searchForm.city}
+                onChange={(event) => setSearchForm((prev) => ({ ...prev, city: event.target.value }))}
+                placeholder="Where are you going?"
+              />
             </div>
             <div>
               <FiCalendar size={14} />
-              <span>Select Dates</span>
+              <div className="hp-date-wrap">
+                <input
+                  className="hp-search-input"
+                  type="date"
+                  value={searchForm.checkIn}
+                  onChange={(event) => setSearchForm((prev) => ({ ...prev, checkIn: event.target.value }))}
+                />
+                <span>-</span>
+                <input
+                  className="hp-search-input"
+                  type="date"
+                  value={searchForm.checkOut}
+                  onChange={(event) => setSearchForm((prev) => ({ ...prev, checkOut: event.target.value }))}
+                />
+              </div>
             </div>
             <div>
               <FiUsers size={14} />
-              <span>2 Guests, 1 Room</span>
+              <div className="hp-guest-wrap">
+                <input
+                  className="hp-search-input hp-num-input"
+                  type="number"
+                  min="1"
+                  max="20"
+                  value={searchForm.guests}
+                  onChange={(event) => setSearchForm((prev) => ({ ...prev, guests: Math.max(1, Number(event.target.value) || 1) }))}
+                />
+                <span>Guests,</span>
+                <input
+                  className="hp-search-input hp-num-input"
+                  type="number"
+                  min="1"
+                  max="10"
+                  value={searchForm.rooms}
+                  onChange={(event) => setSearchForm((prev) => ({ ...prev, rooms: Math.max(1, Number(event.target.value) || 1) }))}
+                />
+                <span>Room</span>
+              </div>
             </div>
-            <Button component={Link} to="/hotels" variant="contained" color="primary" size="large">Search</Button>
+            <Button onClick={onSearch} variant="contained" color="primary" size="large">Search</Button>
           </div>
         </div>
       </motion.section>

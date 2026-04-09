@@ -30,6 +30,14 @@ function BookingPage() {
   const [room, setRoom] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [promoFeedback, setPromoFeedback] = useState({
+    status: 'idle',
+    code: '',
+    discountPercent: 0,
+    message: '',
+  });
+  const [applyingPromo, setApplyingPromo] = useState(false);
+  const [activePromotions, setActivePromotions] = useState([]);
 
   useEffect(() => {
     setForm((prev) => ({ ...prev, roomId }));
@@ -57,6 +65,16 @@ function BookingPage() {
       });
   }, [hotelId, roomId]);
 
+  useEffect(() => {
+    api.get('/promotions/active')
+      .then((res) => {
+        setActivePromotions(res?.data?.promotions || []);
+      })
+      .catch(() => {
+        setActivePromotions([]);
+      });
+  }, []);
+
   const update = (field) => (event) => {
     setForm((prev) => ({ ...prev, [field]: event.target.value }));
   };
@@ -74,8 +92,77 @@ function BookingPage() {
   const nightly = Number(room?.price || 0);
   const subtotal = nightly * nights;
   const serviceFee = subtotal > 0 ? 125 : 0;
-  const taxes = subtotal > 0 ? subtotal * 0.12 : 0;
-  const total = subtotal + serviceFee + taxes;
+  const discountAmount = promoFeedback.status === 'applied'
+    ? (subtotal * promoFeedback.discountPercent) / 100
+    : 0;
+  const discountedSubtotal = Math.max(0, subtotal - discountAmount);
+  const taxes = discountedSubtotal > 0 ? discountedSubtotal * 0.12 : 0;
+  const total = discountedSubtotal + serviceFee + taxes;
+
+  const normalizePromoCode = (value) => value.trim().toUpperCase();
+
+  const applyPromotionCode = async (forcedCode) => {
+    const normalizedCode = normalizePromoCode(forcedCode ?? form.promotionCode ?? '');
+
+    if (!normalizedCode) {
+      setPromoFeedback({
+        status: 'error',
+        code: '',
+        discountPercent: 0,
+        message: 'Please enter a promo code first.',
+      });
+      return;
+    }
+
+    if (!subtotal || nights < 1) {
+      setPromoFeedback({
+        status: 'error',
+        code: normalizedCode,
+        discountPercent: 0,
+        message: 'Select valid check-in/check-out dates before applying a code.',
+      });
+      return;
+    }
+
+    setApplyingPromo(true);
+    setPromoFeedback((prev) => ({
+      ...prev,
+      status: 'loading',
+      message: '',
+      code: normalizedCode,
+      discountPercent: 0,
+    }));
+
+    try {
+      const result = await api.post('/promotions/apply', {
+        code: normalizedCode,
+        amount: Number(subtotal.toFixed(2)),
+      });
+
+      const discountPercent = Number(result?.data?.discountPercent || 0);
+
+      setForm((prev) => ({
+        ...prev,
+        promotionCode: normalizedCode,
+      }));
+
+      setPromoFeedback({
+        status: 'applied',
+        code: normalizedCode,
+        discountPercent,
+        message: `${normalizedCode} applied (${discountPercent}% off room cost).`,
+      });
+    } catch (err) {
+      setPromoFeedback({
+        status: 'error',
+        code: normalizedCode,
+        discountPercent: 0,
+        message: err.message,
+      });
+    } finally {
+      setApplyingPromo(false);
+    }
+  };
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -83,16 +170,25 @@ function BookingPage() {
     setLoading(true);
 
     try {
+      const normalizedPromo = normalizePromoCode(form.promotionCode || '');
       const payload = {
         roomId: form.roomId,
         checkInDate: form.checkInDate,
         checkOutDate: form.checkOutDate,
         guests: Number(form.guests),
-        promotionCode: form.promotionCode || undefined,
+        promotionCode: normalizedPromo || undefined,
       };
 
       const result = await api.post('/bookings', payload);
-      navigate('/booking-confirmation', { state: { booking: result?.data?.booking } });
+      navigate('/booking-confirmation', {
+        state: {
+          booking: result?.data?.booking,
+          checkout: {
+            paymentMethod,
+            cardLast4: guest.cardNumber ? guest.cardNumber.replace(/\s+/g, '').slice(-4) : '',
+          },
+        },
+      });
     } catch (err) {
       setError(err.message);
     } finally {
@@ -132,7 +228,68 @@ function BookingPage() {
                 <span>Check Out</span>
                 <TextField type="date" value={form.checkOutDate} onChange={update('checkOutDate')} required fullWidth inputProps={{ 'aria-label': 'Check Out' }} />
               </div>
-              <TextField className="span-two" label="Promotion Code" placeholder="Promotion code (optional)" value={form.promotionCode} onChange={update('promotionCode')} fullWidth />
+              <div className="span-two booking-promo-wrap">
+                <TextField
+                  label="Promotion Code"
+                  placeholder="Promotion code (optional)"
+                  value={form.promotionCode}
+                  onChange={(event) => {
+                    const nextValue = event.target.value;
+                    setForm((prev) => ({ ...prev, promotionCode: nextValue }));
+
+                    if (promoFeedback.status !== 'idle' || promoFeedback.message) {
+                      setPromoFeedback({
+                        status: 'idle',
+                        code: '',
+                        discountPercent: 0,
+                        message: '',
+                      });
+                    }
+                  }}
+                  fullWidth
+                />
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={applyPromotionCode}
+                  disabled={applyingPromo}
+                  className="promo-apply-btn"
+                >
+                  {applyingPromo ? 'Applying...' : 'Apply'}
+                </Button>
+              </div>
+              {activePromotions.length > 0 && (
+                <div className="span-two promo-suggestions">
+                  <span>Available Offers</span>
+                  <div className="promo-chip-row">
+                    {activePromotions.map((promo) => {
+                      const code = String(promo.code || '').toUpperCase();
+                      const discountPercent = Number(promo.discountPercent || 0);
+
+                      return (
+                        <button
+                          key={promo.id || code}
+                          type="button"
+                          className={form.promotionCode.toUpperCase() === code ? 'promo-chip active' : 'promo-chip'}
+                          onClick={() => {
+                            setForm((prev) => ({ ...prev, promotionCode: code }));
+                            applyPromotionCode(code);
+                          }}
+                          disabled={applyingPromo}
+                        >
+                          <strong>{code}</strong>
+                          <small>{discountPercent}% OFF</small>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+              {promoFeedback.message && (
+                <p className={promoFeedback.status === 'applied' ? 'promo-ok' : 'promo-bad'}>
+                  {promoFeedback.message}
+                </p>
+              )}
             </div>
           </article>
 
@@ -200,6 +357,13 @@ function BookingPage() {
 
               <div className="summary-line"><span>Nightly Rate</span><span>${nightly.toFixed(2)}</span></div>
               <div className="summary-line"><span>Nights</span><span>{nights}</span></div>
+              <div className="summary-line"><span>Room Subtotal</span><span>${subtotal.toFixed(2)}</span></div>
+              {discountAmount > 0 && (
+                <div className="summary-line summary-discount">
+                  <span>Promo Discount ({promoFeedback.code || normalizePromoCode(form.promotionCode || '')})</span>
+                  <span>-${discountAmount.toFixed(2)}</span>
+                </div>
+              )}
               <div className="summary-line"><span>Service &amp; Resort Fees</span><span>${serviceFee.toFixed(2)}</span></div>
               <div className="summary-line"><span>Tourism Taxes (12%)</span><span>${taxes.toFixed(2)}</span></div>
 

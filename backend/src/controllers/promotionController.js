@@ -1,5 +1,37 @@
 const prisma = require('../config/prisma');
 
+exports.getActivePromotions = async (req, res, next) => {
+  try {
+    const now = new Date();
+    const promotions = await prisma.promotion.findMany({
+      where: {
+        isActive: true,
+        validFrom: { lte: now },
+        validUntil: { gte: now },
+      },
+      select: {
+        id: true,
+        code: true,
+        discountPercent: true,
+        validUntil: true,
+      },
+      orderBy: [
+        { discountPercent: 'desc' },
+        { code: 'asc' },
+      ],
+      take: 8,
+    });
+
+    res.status(200).json({
+      status: 'success',
+      results: promotions.length,
+      data: { promotions },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.applyPromotion = async (req, res, next) => {
   try {
     const { code, amount } = req.body;

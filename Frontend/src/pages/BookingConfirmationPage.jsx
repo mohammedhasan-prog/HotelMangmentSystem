@@ -37,12 +37,18 @@ function getNights(booking) {
 function BookingConfirmationPage() {
   const { state } = useLocation();
   const booking = state?.booking;
+  const checkout = state?.checkout || {};
   const checkIn = booking?.checkInDate ? new Date(booking.checkInDate).toLocaleDateString() : 'TBD';
   const checkOut = booking?.checkOutDate ? new Date(booking.checkOutDate).toLocaleDateString() : 'TBD';
   const nights = getNights(booking);
   const total = Number(booking?.totalAmount || 0);
+  const promoPercent = Number(booking?.promotion?.discountPercent || 0);
+  const baseBeforeDiscount = promoPercent > 0 ? total / (1 - promoPercent / 100) : total;
+  const promoDiscountAmount = promoPercent > 0 ? Math.max(0, baseBeforeDiscount - total) : 0;
+  const paymentMethod = checkout.paymentMethod === 'wallet' ? 'Apple Pay / Digital Wallet' : 'Credit / Debit Card';
+  const paymentTail = checkout.cardLast4 ? ` ending in ${checkout.cardLast4}` : '';
   const serviceAndTax = total * 0.13;
-  const baseStay = Math.max(0, total - serviceAndTax);
+  const baseStay = Math.max(0, baseBeforeDiscount - serviceAndTax);
 
   if (!booking) {
     return (
@@ -110,6 +116,12 @@ function BookingConfirmationPage() {
             <aside className="confirm-right">
               <h4>Payment Details</h4>
               <div className="confirm-price-line"><span>{nights} Night{nights > 1 ? 's' : ''} Stay</span><strong>${baseStay.toFixed(2)}</strong></div>
+              {promoDiscountAmount > 0 && (
+                <div className="confirm-price-line promo">
+                  <span>Promotion ({booking?.promotion?.code || 'Code'})</span>
+                  <strong>-${promoDiscountAmount.toFixed(2)}</strong>
+                </div>
+              )}
               <div className="confirm-price-line"><span>Service &amp; Taxes</span><strong>${serviceAndTax.toFixed(2)}</strong></div>
               <div className="confirm-price-line total"><span>Total Price</span><strong>${total.toFixed(2)}</strong></div>
 
@@ -117,7 +129,7 @@ function BookingConfirmationPage() {
                 <FiFileText size={14} />
                 <div>
                   <small>Payment Method</small>
-                  <p>Card ending in •••• 8842</p>
+                  <p>{paymentMethod}{paymentTail}</p>
                 </div>
               </div>
 

@@ -7,6 +7,11 @@ const router = express.Router();
 router.use(protect);
 router.use(restrictTo('ADMIN'));
 
+router.get('/hotels', adminController.getHotels);
+router.get('/bookings/recent', adminController.getRecentBookings);
+router.get('/bookings', adminController.getBookingsDashboard);
+router.get('/analytics', adminController.getAnalyticsDashboard);
+
 /**
  * @swagger
  * /admin/hotels:
@@ -18,6 +23,8 @@ router.use(restrictTo('ADMIN'));
  *         description: Hotel created
  */
 router.post('/hotels', adminController.createHotel);
+router.patch('/hotels/:id', adminController.updateHotel);
+router.delete('/hotels/:id', adminController.deleteHotel);
 
 /**
  * @swagger

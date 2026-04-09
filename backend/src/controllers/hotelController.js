@@ -64,6 +64,7 @@ exports.getHotels = async (req, res, next) => {
         page,
         limit,
         total,
+        totalPages: Math.max(Math.ceil(total / limit), 1),
       },
       data: {
         hotels: hotels.map((hotel) => ({
