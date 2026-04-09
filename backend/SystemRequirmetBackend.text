@@ -1,0 +1,196 @@
+Hotel Booking Website Backend
+1. Introduction
+1.1 Purpose
+
+This document defines the requirements for the backend system of a Hotel Booking Website. The backend will support hotel browsing, room search, booking, availability management, authentication, booking history, email confirmations, promotions, and administrative management.
+
+1.2 Scope
+
+The system will expose REST APIs for:
+
+user registration and login
+hotel and room listing
+room search and filtering
+booking creation and cancellation
+availability updates
+email confirmation
+booking history and rebooking
+promotions and discount handling
+1.3 Technology Stack
+Backend Runtime: Node.js
+Language: JavaScript
+Framework: Express.js
+Database: Supabase (PostgreSQL)
+ORM: Prisma
+Authentication: Supabase Auth / JWT
+API Documentation: Swagger / OpenAPI
+Deployment: Docker
+2. Overall Description
+2.1 Product Perspective
+
+The backend will act as the central service layer for the booking platform. It will manage hotels, rooms, reservations, users, promotions, and notifications. The frontend will consume these APIs.
+
+2.2 User Classes
+Guest User: browse hotels and view room availability
+Registered Customer: book rooms, view history, rebook, apply coupons
+Hotel/Admin User: manage hotels, rooms, pricing, and availability
+System Service: email service, notification service, background jobs
+2.3 Operating Environment
+Node.js server environment
+Express-based REST API server
+Relational database
+Email delivery service
+API testing via Postman and Swagger
+3. Functional Requirements
+3.1 User Management
+Users shall be able to register with email, password, and profile details.
+Users shall be able to log in and receive an authentication token.
+Users shall be able to update profile information.
+Users shall be able to reset passwords through email verification.
+3.2 Hotel Browsing
+Users shall be able to view all hotels.
+Users shall be able to view hotel details such as location, room types, pricing, ratings, and amenities.
+Users shall be able to search hotels by city, location, dates, price range, and amenities.
+3.3 Room Availability
+The system shall show available rooms based on selected dates.
+The system shall block rooms already reserved for the same time period.
+The system shall update availability after booking confirmation or cancellation.
+3.4 Booking Management
+Authenticated users shall be able to create bookings.
+Users shall be able to select room type, number of guests, check-in date, and check-out date.
+The system shall generate a unique reservation number for every booking.
+Users shall be able to cancel bookings according to cancellation rules.
+Users shall be able to view booking history and rebook previous reservations.
+3.5 Promotions
+The system shall allow discount codes, seasonal offers, and loyalty rewards.
+The system shall validate coupon eligibility before applying discounts.
+The system shall calculate final payable amount after discounts and taxes.
+3.6 Email Confirmation
+After booking confirmation, the system shall send an email containing booking details and reservation number.
+The email shall include hotel name, dates, booking status, and payment summary if enabled.
+3.7 Admin Capabilities
+Admins shall be able to create, update, and delete hotel records.
+Admins shall be able to manage room categories, pricing, and facilities.
+Admins shall be able to update room availability and promotional offers.
+4. External Interface Requirements
+4.1 API Interface
+
+The backend shall expose REST endpoints such as:
+
+POST /auth/register
+POST /auth/login
+GET /hotels
+GET /hotels/:id
+GET /rooms/availability
+POST /bookings
+GET /bookings/history
+POST /promotions/apply
+POST /admin/hotels
+PATCH /admin/rooms/:id
+4.2 Documentation Interface
+
+All APIs shall be documented using OpenAPI/Swagger so that clients can understand request and response formats without direct source code access. OpenAPI is the standard for describing HTTP APIs in a machine-readable and human-readable way.
+
+5. Non-Functional Requirements
+5.1 Security
+All endpoints shall use HTTPS/TLS in production.
+Authentication shall be token-based.
+Authorization shall be role-based.
+Passwords shall be stored using strong hashing.
+The system shall prevent unauthorized access to booking records.
+The system shall include rate limiting on login and booking endpoints.
+The system shall validate and sanitize all user input.
+
+Express security guidance recommends TLS, secure cookies, input validation, and brute-force protection, while OWASP highlights broken authentication and object-level authorization as major API risks.
+
+5.2 Performance
+Search APIs shall respond quickly even under high traffic.
+Pagination shall be used for hotel and booking lists.
+Caching may be used for frequently accessed hotel data.
+The backend shall avoid synchronous blocking operations in request handlers.
+
+Express performance guidance specifically recommends avoiding synchronous functions in server code, handling exceptions properly, and using reverse proxies and caching where appropriate.
+
+5.3 Reliability
+The system shall not lose bookings once confirmed.
+Booking creation shall be atomic to prevent double booking.
+Failed email notifications shall be retried.
+The system shall log all critical operations and errors.
+5.4 Maintainability
+Code shall be organized by module: auth, hotels, rooms, bookings, users, promotions, notifications.
+Controllers, services, and repositories shall be separated.
+API responses shall follow consistent error and success formats.
+5.5 Scalability
+The backend shall be horizontally scalable.
+Stateless API design shall be preferred.
+Heavy tasks such as email sending may run in background jobs.
+
+Node.js guidance emphasizes secure application design and avoiding patterns that block the event loop, which supports scalable request handling in production systems.
+
+6. Data Requirements
+6.1 Main Entities
+User
+Hotel
+Room
+Booking
+Promotion
+Payment
+Review optional
+Notification / Email Log
+6.2 Important Relationships
+A user can create many bookings.
+A hotel can contain many rooms.
+A room can have many bookings over time, but only one active booking per date range.
+A promotion can apply to one or many bookings.
+7. Business Rules
+A room cannot be booked for overlapping dates.
+A booking is confirmed only after validation of availability.
+A booking cancellation must restore availability.
+Discount codes must be valid and not expired.
+Booking history must be visible only to the authenticated user.
+Admin users only can manage hotels, rooms, and promotions.
+8. Error Handling Requirements
+The API shall return meaningful HTTP status codes.
+Validation errors shall return 400 Bad Request.
+Authentication failure shall return 401 Unauthorized.
+Authorization failure shall return 403 Forbidden.
+Missing resources shall return 404 Not Found.
+Server-side failures shall return 500 Internal Server Error.
+All errors shall include a consistent message format.
+9. Suggested API Design Standards
+Use RESTful resource naming.
+Use plural nouns for collections.
+Support filtering, sorting, and pagination.
+Keep endpoints stateless.
+Return JSON responses only.
+Validate requests centrally using middleware.
+Use structured logging for debugging and auditing.
+10. Security Controls
+JWT access tokens with refresh token support
+Role-based access control
+Input validation middleware
+Rate limiting on auth endpoints
+Password hashing with bcrypt or similar
+Ownership checks on booking resources
+Helmet-style HTTP security headers
+Secure environment variable management
+11. Assumptions and Constraints
+Assumptions
+Users will access the platform through a web frontend or mobile client.
+Hotel and room data will be preloaded or managed by admins.
+Email service will be available for booking confirmation.
+Constraints
+Backend will be implemented using Node.js, JavaScript, and Express.
+APIs must remain compatible with frontend integration.
+Production deployment should follow secure practices such as TLS and environment-based configuration.
+12. Acceptance Criteria
+
+The backend will be considered successful if:
+
+users can search hotels and view room availability
+bookings can be created without double-booking
+booking confirmation emails are sent correctly
+admin users can manage hotel inventory
+authentication and authorization are enforced
+APIs are documented through Swagger/OpenAPI
+the system passes Postman testing for all main flows
