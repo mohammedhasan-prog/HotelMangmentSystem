@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StayVue Admin Panel | The Elevated Voyager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#ffdea0",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#adc6ff",
+                    "surface-container-high": "#eae7e7",
+                    "primary": "#031632",
+                    "secondary": "#0058bc",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#fefcff",
+                    "tertiary-container": "#392800",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#261a00",
+                    "error": "#ba1a1a",
+                    "outline": "#75777e",
+                    "surface-container-highest": "#e5e2e1",
+                    "surface-container": "#f0eded",
+                    "inverse-primary": "#b6c7eb",
+                    "on-primary-container": "#8293b5",
+                    "background": "#fcf9f8",
+                    "tertiary-fixed-dim": "#fbbc09",
+                    "primary-fixed-dim": "#b6c7eb",
+                    "surface-container-low": "#f6f3f2",
+                    "on-surface": "#1c1b1b",
+                    "secondary-fixed": "#d8e2ff",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fcf9f8",
+                    "inverse-on-surface": "#f3f0ef",
+                    "on-primary-fixed": "#081b38",
+                    "on-background": "#1c1b1b",
+                    "surface-variant": "#e5e2e1",
+                    "primary-fixed": "#d7e2ff",
+                    "on-secondary-fixed": "#001a41",
+                    "outline-variant": "#c5c6ce",
+                    "secondary-container": "#1070e8",
+                    "tertiary": "#1f1500",
+                    "on-tertiary-container": "#ba8a00",
+                    "surface-dim": "#dcd9d9",
+                    "primary-container": "#1a2b48",
+                    "surface": "#fcf9f8",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#44474d",
+                    "inverse-surface": "#313030",
+                    "on-primary-fixed-variant": "#374765",
+                    "on-tertiary-fixed-variant": "#5c4300",
+                    "surface-tint": "#4e5f7e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#004494"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .no-line-rule { border: none !important; }
+        .glass-header { backdrop-filter: blur(24px); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased flex min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="w-72 bg-white dark:bg-slate-950 border-r border-transparent flex flex-col fixed inset-y-0 z-50">
+<div class="h-20 flex items-center px-8">
+<span class="text-2xl font-bold tracking-tighter text-slate-900 dark:text-white">The Elevated Voyager</span>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<!-- Active Item: Dashboard Overview -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary-container text-on-primary-container font-semibold transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span>Dashboard Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="apartment">apartment</span>
+<span>Manage Hotels</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="book_online">book_online</span>
+<span>Manage Bookings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="p-4 mt-auto">
+<div class="bg-surface-container-low rounded-xl p-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-white font-bold">JD</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold truncate">John Doe</p>
+<p class="text-xs text-on-surface-variant truncate">Super Admin</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="logout">logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-72">
+<!-- Top App Bar -->
+<header class="h-20 bg-white/80 dark:bg-slate-950/80 glass-header flex items-center justify-between px-10 sticky top-0 z-40">
+<div>
+<h1 class="text-xl font-bold tracking-tight">Dashboard Overview</h1>
+<p class="text-xs text-on-surface-variant">Welcome back, manager.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="absolute inset-y-0 left-3 flex items-center text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="search">search</span>
+</span>
+<input class="pl-10 pr-4 py-2 rounded-xl bg-surface-container-low border-none focus:ring-2 focus:ring-secondary text-sm w-64" placeholder="Search data..." type="text"/>
+</div>
+<button class="flex items-center gap-2 bg-secondary text-white px-5 py-2.5 rounded-xl font-semibold shadow-sm hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>Add New Hotel</span>
+</button>
+</div>
+</header>
+<!-- Dashboard Body -->
+<section class="p-10 space-y-10 max-w-7xl mx-auto">
+<!-- Stats Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Stat Card 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border-transparent flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="payments" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<span class="text-xs font-bold text-secondary px-2 py-1 bg-secondary/5 rounded-md">+12.5%</span>
+</div>
+<div>
+<p class="text-sm text-on-surface-variant font-medium">Total Revenue</p>
+<h3 class="text-2xl font-extrabold tracking-tight mt-1">$428,150</h3>
+</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border-transparent flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-lg bg-tertiary-container/10 flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined" data-icon="confirmation_number" style="font-variation-settings: 'FILL' 1;">confirmation_number</span>
+</div>
+<span class="text-xs font-bold text-on-tertiary-container px-2 py-1 bg-tertiary-container/5 rounded-md">+8%</span>
+</div>
+<div>
+<p class="text-sm text-on-surface-variant font-medium">Active Bookings</p>
+<h3 class="text-2xl font-extrabold tracking-tight mt-1">1,240</h3>
+</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border-transparent flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-lg bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" data-icon="domain" style="font-variation-settings: 'FILL' 1;">domain</span>
+</div>
+<span class="text-xs font-bold text-primary-container px-2 py-1 bg-primary-container/5 rounded-md">Stable</span>
+</div>
+<div>
+<p class="text-sm text-on-surface-variant font-medium">Total Properties</p>
+<h3 class="text-2xl font-extrabold tracking-tight mt-1">84</h3>
+</div>
+</div>
+<!-- Stat Card 4 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border-transparent flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-lg bg-tertiary-fixed-dim/10 flex items-center justify-center text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="text-xs font-bold text-on-tertiary-fixed-variant px-2 py-1 bg-tertiary-fixed-dim/5 rounded-md">High</span>
+</div>
+<div>
+<p class="text-sm text-on-surface-variant font-medium">Avg Rating</p>
+<h3 class="text-2xl font-extrabold tracking-tight mt-1">4.8</h3>
+</div>
+</div>
+</div>
+<!-- Analytics Visual & Recent Actions -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Simple Line Chart Representation -->
+<div class="lg:col-span-2 bg-surface-container-low p-8 rounded-xl relative overflow-hidden">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h4 class="text-lg font-bold">Bookings over time</h4>
+<p class="text-sm text-on-surface-variant">Data visualized for the last 30 days</p>
+</div>
+<select class="bg-surface-container-lowest border-none text-xs font-bold py-1 px-3 rounded-lg focus:ring-0">
+<option>Last 30 Days</option>
+<option>Last 6 Months</option>
+</select>
+</div>
+<!-- Decorative Chart Illustration -->
+<div class="h-64 flex items-end gap-2 px-2 relative">
+<div class="flex-1 bg-secondary-container opacity-20 rounded-t-lg" style="height: 40%;"></div>
+<div class="flex-1 bg-secondary-container opacity-30 rounded-t-lg" style="height: 65%;"></div>
+<div class="flex-1 bg-secondary-container opacity-40 rounded-t-lg" style="height: 55%;"></div>
+<div class="flex-1 bg-secondary-container opacity-50 rounded-t-lg" style="height: 85%;"></div>
+<div class="flex-1 bg-secondary-container opacity-60 rounded-t-lg" style="height: 70%;"></div>
+<div class="flex-1 bg-secondary-container opacity-70 rounded-t-lg" style="height: 95%;"></div>
+<div class="flex-1 bg-secondary-container opacity-80 rounded-t-lg" style="height: 80%;"></div>
+<div class="flex-1 bg-secondary-container rounded-t-lg" style="height: 100%;"></div>
+<!-- Visual Overlay Line -->
+<div class="absolute inset-x-0 bottom-0 border-b border-outline-variant/30 w-full h-px"></div>
+<div class="absolute inset-x-0 bottom-1/4 border-b border-outline-variant/10 w-full h-px"></div>
+<div class="absolute inset-x-0 bottom-1/2 border-b border-outline-variant/10 w-full h-px"></div>
+<div class="absolute inset-x-0 bottom-3/4 border-b border-outline-variant/10 w-full h-px"></div>
+</div>
+<div class="flex justify-between mt-4 px-2 text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">
+<span>Week 1</span>
+<span>Week 2</span>
+<span>Week 3</span>
+<span>Week 4</span>
+</div>
+</div>
+<!-- High Priority Properties -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-6 overflow-hidden flex flex-col">
+<h4 class="text-lg font-bold mb-6">Top Performing</h4>
+<div class="space-y-6 flex-1">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-lg bg-cover bg-center shrink-0" data-alt="luxury hotel exterior with palm trees and a swimming pool in front under a clear blue sky" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB6oFQbhW247t0J7ByBGX02K_MJndZTn8AmMpVo8MdD0E05hC6Vsyurx-qXPDe1EoabY55QWskUekeFtF-LM8N2z2SsTKUKdlLS7jcRHdS4O97uwUKEerbo77QgXPv_cCvcu1EBiE-sVQ-EVAi-AE9bbwBXjPLFlbEHQ-gr2mNHtexhLIQ4fV7b_DdyRvDFQwclIkvs4opWQz8O8_xrc9HMSuN4MrmW5X9vu_pBGtPXjQ_R-3Kp5P95FY1WU3QWri2sFti7DKm1VVcS')"></div>
+<div class="flex-1">
+<p class="text-sm font-bold truncate">Azure Bay Resort</p>
+<p class="text-xs text-on-surface-variant">$2,450 / night avg</p>
+<div class="flex items-center gap-1 mt-1 text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-[12px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[10px] font-bold text-on-surface">4.9 (128)</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-lg bg-cover bg-center shrink-0" data-alt="modern mountain cabin interior with large glass windows overlooking a snowy forest at dusk" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAtEwlGN8sxv-UVRwixboYOSrl2clZ49Fkm-ed3hYatv9ojpIHlZLpY0qN5pb9ZpXmNocbPnN9dre13CjbeduYLgS4l7DRTEyNlYnmgVoC87AmI37I01Xoxs7Q6h7COGw16AhnhlXbmqGjKehZKHzd6zNuRg67Igf7BDaay3qp2btxdL3xL53mpwptA1gXusl1fwY8CFgUgh6FJmR4NH1fM5aM1gVH8RnPXHdbYogWt65QbAuXs6peLXx_tlY1qCyaJVq97O-26ob_F')"></div>
+<div class="flex-1">
+<p class="text-sm font-bold truncate">Peak View Lodge</p>
+<p class="text-xs text-on-surface-variant">$1,100 / night avg</p>
+<div class="flex items-center gap-1 mt-1 text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-[12px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[10px] font-bold text-on-surface">4.8 (94)</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-lg bg-cover bg-center shrink-0" data-alt="chic urban hotel suite with velvet furniture and neon city lights through the window" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCghuXSAiAWVLbv8vmpvwFteyEZopPQ_06Omcx9C3GS36vj6H9IOuzRznqsOspo-3djyvibgKXVcqmIzt4UmLWe7NvsJotdhj6zgwtfqJMoo79nFflrOJjEo5nQ_pLOKwPeZtCOl7kRm93Y2fzWVolOJbkD_S9wNCFRYMUuysi95WjKe6ybIPOfUAr3pVgZaPLwuqHqJz5Q2WYKMoewvSSTwBxlaoG8gIdQBCDTwinUD2wgOPhm_BoyzMvzgJkCZC12Um7o2nrupTSM')"></div>
+<div class="flex-1">
+<p class="text-sm font-bold truncate">The Velvet District</p>
+<p class="text-xs text-on-surface-variant">$850 / night avg</p>
+<div class="flex items-center gap-1 mt-1 text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-[12px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[10px] font-bold text-on-surface">4.7 (215)</span>
+</div>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 text-sm font-bold text-secondary text-left hover:underline">View All Properties →</button>
+</div>
+</div>
+<!-- Recent Bookings Table -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<div class="px-8 py-6 flex items-center justify-between border-b border-outline-variant/10">
+<h4 class="text-lg font-bold">Recent Bookings</h4>
+<button class="text-sm text-on-surface-variant font-medium hover:text-primary transition-colors">View All →</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-xs font-bold uppercase tracking-wider text-on-surface-variant">
+<th class="px-8 py-4">Guest</th>
+<th class="px-8 py-4">Hotel</th>
+<th class="px-8 py-4">Dates</th>
+<th class="px-8 py-4">Price</th>
+<th class="px-8 py-4">Status</th>
+<th class="px-8 py-4"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10 text-sm">
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-8 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="professional portrait of a smiling middle-aged man with short dark hair in a casual blue shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxCCyO6sMTL2daSb-qtQPoCd5dy-GtEBOhPhkOVS7xf1hHQaTEc7nh8RnJV3nwoeaJlhtbbYWMXMLeeZrTpwJakx2BVh9VgWiG8p6Gvcwqx291xs0svKeHp3cmo3WaP645gD7wtW6CSN-aKsmeOUBFqpEt_HQGMqPYiMIh2POfUaF5M3_Z22FW_pXLkgIszPjFUW-eXTK66vuWgYBoc9ZpXbbefxVpAQNhav4f3h4dWVMiO7VSEGdyodL1heSwZWjR4b9SoKaGak02"/>
+</div>
+<span class="font-semibold">Michael Chen</span>
+</div>
+</td>
+<td class="px-8 py-4 text-on-surface-variant">Azure Bay Resort</td>
+<td class="px-8 py-4 text-on-surface-variant">Oct 12 - Oct 15</td>
+<td class="px-8 py-4 font-bold">$1,450.00</td>
+<td class="px-8 py-4">
+<span class="px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[10px] font-black uppercase">Confirmed</span>
+</td>
+<td class="px-8 py-4 text-right">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary" data-icon="more_vert">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-8 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a young woman with curly brown hair smiling warmly in natural outdoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcmMJ1qcDGoQxy-Wvggd3Slh3ncxvzHtkm_ZvEBqEm68fsEeYE_8SsLH0QAZ9zIzCzJbmclkhiJsjTpcdCfl5WMGGN2AqZteyIGVN0uPvXMlMjGMlEvzidcvd4BIh8ig384x5AzO00BLZZcvQXzh12x0nJl6zbQuqnAssm4K-rGbnQb7dHFZ42XMb-lBGwQpFmlY3fEEHIr3ugl_p7Uqk5uxK7-xWTTO1Yk6t9KEzDmQCD36_453owYHKXuDwuK7K3eZKZ1FChKlwS"/>
+</div>
+<span class="font-semibold">Sarah Jenkins</span>
+</div>
+</td>
+<td class="px-8 py-4 text-on-surface-variant">Peak View Lodge</td>
+<td class="px-8 py-4 text-on-surface-variant">Oct 14 - Oct 20</td>
+<td class="px-8 py-4 font-bold">$3,200.00</td>
+<td class="px-8 py-4">
+<span class="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-black uppercase">Pending</span>
+</td>
+<td class="px-8 py-4 text-right">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary" data-icon="more_vert">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-8 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="sharp portrait of a man with spectacles and a neat beard wearing a grey linen shirt in a bright studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBI1LoSDvjDkZkHaD7DVUsBS9g1VYrxZYIinm0eyPfdiT-9I-WL0f-LCQoLQwUrz_7TWgB9jl25SE-LHCRmgkhTKxB4AXGj4fAe5HgZ3dN_61yLLyf4mfG6s3Bd8qAw9POhvoIwV0O3ZRyl7O77H4v-BJ0ravGoPPhCjutLVwW-Fd92B6fu3cUrHyk5avbYo9FE9HZw32EA2aTpYd4lCfSpJ5dSh6pEofcMF1FNwbfG87nj0VEKx2oEOkMSfpbSmszZBglUgvJEPbV7"/>
+</div>
+<span class="font-semibold">David Rossi</span>
+</div>
+</td>
+<td class="px-8 py-4 text-on-surface-variant">The Velvet District</td>
+<td class="px-8 py-4 text-on-surface-variant">Oct 18 - Oct 19</td>
+<td class="px-8 py-4 font-bold">$850.00</td>
+<td class="px-8 py-4">
+<span class="px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[10px] font-black uppercase">Confirmed</span>
+</td>
+<td class="px-8 py-4 text-right">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary" data-icon="more_vert">more_vert</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-slate-50 dark:bg-slate-900 w-full py-12 px-10">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+<div class="col-span-1">
+<span class="text-lg font-black text-slate-900 dark:text-white">The Elevated Voyager</span>
+<p class="mt-4 text-sm text-slate-500 dark:text-slate-400">Advanced property management and concierge analytics for the modern hospitality leader.</p>
+</div>
+<div class="flex flex-col gap-3">
+<span class="text-xs font-bold uppercase tracking-widest text-slate-400">Contact</span>
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 underline" href="#">Support Center</a>
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 underline" href="#">API Documentation</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="text-xs font-bold uppercase tracking-widest text-slate-400">Resources</span>
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 underline" href="#">Privacy Policy</a>
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 underline" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-3 text-right md:text-left">
+<p class="text-xs text-slate-500 dark:text-slate-400">© 2024 The Elevated Voyager. All rights reserved.</p>
+</div>
+</div>
+</footer>
+</main>
+</body></html>

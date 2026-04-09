@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Elevated Voyager | Secure Booking</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#ffdea0",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#adc6ff",
+                    "surface-container-high": "#eae7e7",
+                    "primary": "#031632",
+                    "secondary": "#0058bc",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#fefcff",
+                    "tertiary-container": "#392800",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#261a00",
+                    "error": "#ba1a1a",
+                    "outline": "#75777e",
+                    "surface-container-highest": "#e5e2e1",
+                    "surface-container": "#f0eded",
+                    "inverse-primary": "#b6c7eb",
+                    "on-primary-container": "#8293b5",
+                    "background": "#fcf9f8",
+                    "tertiary-fixed-dim": "#fbbc09",
+                    "primary-fixed-dim": "#b6c7eb",
+                    "surface-container-low": "#f6f3f2",
+                    "on-surface": "#1c1b1b",
+                    "secondary-fixed": "#d8e2ff",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fcf9f8",
+                    "inverse-on-surface": "#f3f0ef",
+                    "on-primary-fixed": "#081b38",
+                    "on-background": "#1c1b1b",
+                    "surface-variant": "#e5e2e1",
+                    "primary-fixed": "#d7e2ff",
+                    "on-secondary-fixed": "#001a41",
+                    "outline-variant": "#c5c6ce",
+                    "secondary-container": "#1070e8",
+                    "tertiary": "#1f1500",
+                    "on-tertiary-container": "#ba8a00",
+                    "surface-dim": "#dcd9d9",
+                    "primary-container": "#1a2b48",
+                    "surface": "#fcf9f8",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#44474d",
+                    "inverse-surface": "#313030",
+                    "on-primary-fixed-variant": "#374765",
+                    "on-tertiary-fixed-variant": "#5c4300",
+                    "surface-tint": "#4e5f7e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#004494"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-line-rule { border: none !important; }
+        .tonal-shift-only { border: none !important; }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-sm dark:shadow-none no-line-rule tonal-shift-only">
+<div class="flex justify-between items-center px-8 h-20 max-w-screen-2xl mx-auto font-sans antialiased tracking-tight">
+<div class="text-2xl font-bold tracking-tighter text-slate-900 dark:text-white">
+                The Elevated Voyager
+            </div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-blue-600 transition-colors duration-200 active:scale-95 transition-transform" href="#">Hotels</a>
+<a class="text-slate-900 dark:text-white font-semibold border-b-2 border-blue-600 active:scale-95 transition-transform" href="#">Bookings</a>
+<button class="flex items-center text-slate-900 dark:text-white active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</nav>
+</div>
+</header>
+<main class="pt-32 pb-24 px-8 max-w-screen-2xl mx-auto">
+<!-- Breadcrumb / Editorial Header -->
+<div class="mb-12">
+<span class="text-xs uppercase tracking-[0.15em] font-bold text-tertiary-fixed-dim block mb-2">Checkout Journey</span>
+<h1 class="text-5xl font-black tracking-tight text-on-surface leading-tight">Secure Your Sanctuary</h1>
+<p class="text-on-surface-variant mt-4 max-w-xl text-lg">Your refined escape is just a moment away. Complete your details below to finalize your curated stay.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+<!-- Left Column: Guest & Payment Forms -->
+<div class="lg:col-span-7 space-y-12">
+<!-- Guest Details Section -->
+<section class="p-8 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-secondary" data-icon="person">person</span>
+<h2 class="text-xl font-bold tracking-tight">Guest Details</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-2">
+<label class="text-sm font-semibold tracking-wide text-on-surface-variant block">Full Name</label>
+<input class="w-full bg-surface-container-lowest border-0 border-b border-outline-variant/15 focus:ring-0 focus:border-secondary transition-all px-0 py-3 text-on-surface placeholder:text-outline-variant" placeholder="Julianne Moore" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold tracking-wide text-on-surface-variant block">Email Address</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-0 border-b border-secondary/50 focus:ring-0 focus:border-secondary transition-all px-0 py-3 text-on-surface placeholder:text-outline-variant" placeholder="j.moore@elevated.com" type="email"/>
+<span class="absolute right-0 top-3 material-symbols-outlined text-secondary text-sm" data-icon="check_circle">check_circle</span>
+</div>
+</div>
+<div class="space-y-2 md:col-span-2">
+<label class="text-sm font-semibold tracking-wide text-on-surface-variant block">Phone Number</label>
+<input class="w-full bg-surface-container-lowest border-0 border-b border-outline-variant/15 focus:ring-0 focus:border-secondary transition-all px-0 py-3 text-on-surface placeholder:text-outline-variant" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+</div>
+</section>
+<!-- Special Requests -->
+<section class="p-8 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-secondary" data-icon="notes">notes</span>
+<h2 class="text-xl font-bold tracking-tight">Special Requests</h2>
+</div>
+<div class="space-y-2">
+<textarea class="w-full bg-surface-container-lowest border-0 border-b border-outline-variant/15 focus:ring-0 focus:border-secondary transition-all px-0 py-3 text-on-surface placeholder:text-outline-variant resize-none" placeholder="High floor, quiet room, or dietary requirements..." rows="3"></textarea>
+</div>
+</section>
+<!-- Payment Method Selection -->
+<section class="p-8 bg-surface-container-low rounded-xl">
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="payments">payments</span>
+<h2 class="text-xl font-bold tracking-tight">Payment Method</h2>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span class="text-xs font-bold uppercase tracking-widest">Secure 256-bit SSL</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+<div class="p-6 rounded-xl bg-surface-container-highest border-2 border-secondary flex flex-col gap-4 cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-secondary" data-icon="credit_card">credit_card</span>
+<div class="w-4 h-4 rounded-full border-4 border-secondary"></div>
+</div>
+<div>
+<p class="font-bold">Credit / Debit Card</p>
+<p class="text-xs text-on-surface-variant">Visa, Mastercard, Amex</p>
+</div>
+</div>
+<div class="p-6 rounded-xl bg-surface-container-lowest border-2 border-transparent hover:border-outline-variant transition-all flex flex-col gap-4 cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="account_balance">account_balance</span>
+<div class="w-4 h-4 rounded-full border-2 border-outline-variant"></div>
+</div>
+<div>
+<p class="font-bold">Apple Pay / Digital Wallet</p>
+<p class="text-xs text-on-surface-variant">Instant &amp; Secure checkout</p>
+</div>
+</div>
+</div>
+<div class="space-y-6">
+<div class="space-y-2">
+<label class="text-sm font-semibold tracking-wide text-on-surface-variant block">Card Number</label>
+<input class="w-full bg-surface-container-lowest border-0 border-b border-outline-variant/15 focus:ring-0 focus:border-secondary transition-all px-0 py-3 text-on-surface placeholder:text-outline-variant" placeholder="•••• •••• •••• 4455" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<div class="space-y-2">
+<label class="text-sm font-semibold tracking-wide text-on-surface-variant block">Expiry Date</label>
+<input class="w-full bg-surface-container-lowest border-0 border-b border-outline-variant/15 focus:ring-0 focus:border-secondary transition-all px-0 py-3 text-on-surface placeholder:text-outline-variant" placeholder="MM / YY" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold tracking-wide text-on-surface-variant block">CVV</label>
+<input class="w-full bg-surface-container-lowest border-0 border-b border-outline-variant/15 focus:ring-0 focus:border-secondary transition-all px-0 py-3 text-on-surface placeholder:text-outline-variant" placeholder="•••" type="text"/>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Your Booking Summary -->
+<aside class="lg:col-span-5 sticky top-32">
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_12px_32px_rgba(28,27,27,0.06)] overflow-hidden">
+<!-- Hotel Image with framed look -->
+<div class="p-4">
+<div class="relative h-64 overflow-hidden rounded-lg">
+<img alt="luxury hotel suite" class="w-full h-full object-cover" data-alt="ultra-modern luxury hotel suite with floor-to-ceiling windows overlooking a sunset cityscape, minimalist furniture and warm ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCg5xAz1IIubtzTW8gBSuxj2FVgunXHyUognA1kqhnhnIs96ZFBVJHvmfrYAFMpo9Xvk3yFadYbLix8aqa3uTm9VAXhrUizcSQCXyS0OrbL9BwdCIK3ax5OLCT0RlTXbLnJuWOehOggpUuLT_eQVfm60c8g-QhpSdCwnI2DvE8repozUskYt487JoJfNU7H5WUyc0ZGetrcKTU-D7stvsph-GCXog3AADmAYWr5uQT0dz82au1UYcCfqxhm81Ars3sLmuFjo0GIxoYX"/>
+<div class="absolute top-4 left-4">
+<span class="bg-tertiary-fixed-dim text-on-tertiary-fixed px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm">Premium Selection</span>
+</div>
+</div>
+</div>
+<div class="px-8 pb-8 pt-4 space-y-8">
+<div>
+<h3 class="text-2xl font-bold tracking-tight text-on-surface">The Obsidian Horizon</h3>
+<div class="flex items-center gap-1 text-tertiary-fixed-dim mt-1">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-on-surface-variant ml-2">4.9 (1,204 Reviews)</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 p-4 bg-surface-container-low rounded-lg">
+<div class="space-y-1">
+<p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Check-In</p>
+<p class="font-bold text-sm">Oct 14, 2024</p>
+</div>
+<div class="space-y-1 text-right">
+<p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Check-Out</p>
+<p class="font-bold text-sm">Oct 19, 2024</p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center text-on-surface-variant">
+<p class="text-sm">Skyline King Suite <span class="font-medium text-on-surface ml-2">× 5 nights</span></p>
+<p class="font-semibold text-on-surface">$2,450.00</p>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<p class="text-sm">Service &amp; Resort Fees</p>
+<p class="font-semibold text-on-surface">$125.00</p>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<p class="text-sm">Tourism Taxes (12%)</p>
+<p class="font-semibold text-on-surface">$294.00</p>
+</div>
+</div>
+<div class="pt-6 border-t border-outline-variant/15">
+<div class="flex justify-between items-end mb-8">
+<div>
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Total Amount</p>
+<p class="text-3xl font-black tracking-tight mt-1">$2,869.00</p>
+</div>
+<span class="text-[10px] font-bold text-secondary bg-secondary-fixed px-2 py-1 rounded">USD</span>
+</div>
+<button class="w-full py-5 bg-secondary-container hover:bg-secondary-container/90 text-on-secondary-container rounded-xl font-bold text-lg tracking-tight transition-all active:scale-[0.98] shadow-lg shadow-secondary/20 flex items-center justify-center gap-3">
+<span>Confirm &amp; Pay Securely</span>
+<span class="material-symbols-outlined text-sm" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+</button>
+<p class="text-[10px] text-center text-on-surface-variant mt-4 px-8 leading-relaxed">
+                                By clicking "Confirm &amp; Pay", you agree to our <a class="underline" href="#">Booking Terms</a> and <a class="underline" href="#">Cancellation Policy</a>.
+                            </p>
+</div>
+</div>
+</div>
+<!-- Trust Badges -->
+<div class="mt-8 grid grid-cols-3 gap-4 px-4 opacity-60">
+<div class="flex flex-col items-center text-center gap-1">
+<span class="material-symbols-outlined text-xl" data-icon="verified_user">verified_user</span>
+<span class="text-[9px] font-bold uppercase tracking-tighter">IATA Member</span>
+</div>
+<div class="flex flex-col items-center text-center gap-1">
+<span class="material-symbols-outlined text-xl" data-icon="travel_explore">travel_explore</span>
+<span class="text-[9px] font-bold uppercase tracking-tighter">Global Service</span>
+</div>
+<div class="flex flex-col items-center text-center gap-1">
+<span class="material-symbols-outlined text-xl" data-icon="workspace_premium">workspace_premium</span>
+<span class="text-[9px] font-bold uppercase tracking-tighter">5-Star Elite</span>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-8 bg-slate-50 dark:bg-slate-900 bg-surface-container-low font-sans text-sm">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-screen-2xl mx-auto">
+<div class="md:col-span-1">
+<div class="text-lg font-black text-slate-900 dark:text-white mb-4">The Elevated Voyager</div>
+<p class="text-slate-500 dark:text-slate-400 mb-4 pr-8">Redefining the art of travel through curated experiences and architectural precision.</p>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-bold text-slate-900 dark:text-white mb-2">Company</h4>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline cursor-pointer" href="#">Contact</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline cursor-pointer" href="#">About Us</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline cursor-pointer" href="#">Careers</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-bold text-slate-900 dark:text-white mb-2">Support</h4>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline cursor-pointer" href="#">FAQ</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline cursor-pointer" href="#">Help Center</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline cursor-pointer" href="#">Security</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-bold text-slate-900 dark:text-white mb-2">Legal</h4>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline cursor-pointer" href="#">Privacy Policy</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline cursor-pointer" href="#">Terms of Service</a>
+</div>
+</div>
+<div class="max-w-screen-2xl mx-auto mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 text-center">
+            © 2024 The Elevated Voyager. All rights reserved.
+        </div>
+</footer>
+</body></html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Elevated Voyager | My Bookings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#ffdea0",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#adc6ff",
+                    "surface-container-high": "#eae7e7",
+                    "primary": "#031632",
+                    "secondary": "#0058bc",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#fefcff",
+                    "tertiary-container": "#392800",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#261a00",
+                    "error": "#ba1a1a",
+                    "outline": "#75777e",
+                    "surface-container-highest": "#e5e2e1",
+                    "surface-container": "#f0eded",
+                    "inverse-primary": "#b6c7eb",
+                    "on-primary-container": "#8293b5",
+                    "background": "#fcf9f8",
+                    "tertiary-fixed-dim": "#fbbc09",
+                    "primary-fixed-dim": "#b6c7eb",
+                    "surface-container-low": "#f6f3f2",
+                    "on-surface": "#1c1b1b",
+                    "secondary-fixed": "#d8e2ff",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fcf9f8",
+                    "inverse-on-surface": "#f3f0ef",
+                    "on-primary-fixed": "#081b38",
+                    "on-background": "#1c1b1b",
+                    "surface-variant": "#e5e2e1",
+                    "primary-fixed": "#d7e2ff",
+                    "on-secondary-fixed": "#001a41",
+                    "outline-variant": "#c5c6ce",
+                    "secondary-container": "#1070e8",
+                    "tertiary": "#1f1500",
+                    "on-tertiary-container": "#ba8a00",
+                    "surface-dim": "#dcd9d9",
+                    "primary-container": "#1a2b48",
+                    "surface": "#fcf9f8",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#44474d",
+                    "inverse-surface": "#313030",
+                    "on-primary-fixed-variant": "#374765",
+                    "on-tertiary-fixed-variant": "#5c4300",
+                    "surface-tint": "#4e5f7e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#004494"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .no-line-rule { border: none !important; }
+        .tonal-shift-only { border: none !important; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-sm dark:shadow-none tonal-shift-only">
+<div class="flex justify-between items-center px-8 h-20 max-w-screen-2xl mx-auto font-sans antialiased tracking-tight">
+<div class="text-2xl font-bold tracking-tighter text-slate-900 dark:text-white">
+                The Elevated Voyager
+            </div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-blue-600 transition-colors duration-200 active:scale-95" href="#">Hotels</a>
+<a class="text-slate-900 dark:text-white font-semibold border-b-2 border-blue-600 hover:text-blue-600 transition-colors duration-200 active:scale-95" href="#">Bookings</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center bg-surface-container-low px-4 py-2 rounded-xl text-on-surface-variant gap-2 outline-variant/15 outline">
+<span class="material-symbols-outlined text-sm">search</span>
+<span class="text-sm">Search destinations...</span>
+</div>
+<button class="text-slate-900 dark:text-slate-50 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-3xl">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<main class="pt-20 min-h-screen">
+<div class="max-w-screen-2xl mx-auto flex flex-col md:flex-row gap-8 p-8">
+<!-- Sidebar Navigation -->
+<aside class="w-full md:w-72 flex-shrink-0">
+<div class="sticky top-28 space-y-2">
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-white rounded-xl font-semibold active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span>My Bookings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span>Wishlist</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person_outline">person_outline</span>
+<span>Profile Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+<span>Security</span>
+</a>
+</nav>
+<!-- Quick Profile Card (Glassmorphism inspired) -->
+<div class="mt-8 p-6 bg-surface-container-low rounded-xl outline outline-variant/15">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-white font-bold">JD</div>
+<div>
+<h4 class="font-bold text-on-surface">Julianne Deville</h4>
+<p class="text-xs text-on-surface-variant">deville.j@voyager.com</p>
+</div>
+</div>
+<button class="w-full py-2 bg-primary text-on-primary rounded-xl text-sm font-semibold hover:bg-primary-container transition-colors active:scale-95">Save Changes</button>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 space-y-10">
+<!-- Section Header -->
+<div class="space-y-2">
+<span class="text-xs font-bold tracking-[0.1em] text-on-tertiary-fixed-variant uppercase">Your Journey History</span>
+<h1 class="text-4xl font-extrabold tracking-tight text-on-surface leading-tight">My Booking History</h1>
+</div>
+<!-- Bookings Bento-style Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+<!-- Booking Card 1: Upcoming -->
+<div class="bg-surface-container-lowest rounded-xl p-4 flex flex-col md:flex-row gap-6 shadow-sm hover:shadow-lg transition-shadow duration-300 group">
+<div class="relative w-full md:w-48 h-48 overflow-hidden rounded-lg">
+<img alt="Luxury Resort" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern luxury beachfront resort with infinity pool at sunrise and soft golden architectural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALG8k2vfR7ev3hkHSQNYhWMrBpaM0FKYdO_sPLrICjgONjrVtmC7jDg5AdCLX_4Rj_dCcCkDfig1mBvlZ5rCPwg4zj-5ZcO5CTm8KTE6V7TF8XPqmYCQh2OI1M0MWVagCWijTCH37tH9nuBBPQANz5zvlsR_Vtgz6QV2bNCbzPL3jls7I7dZgIfyCsSkNCsTVKGy184N0_tbEHsUSiJWbZRs7KOU4bTtKZSdxbNdsH_OmZUzOuvw6zX_jbopHotchj-TmaRgd_0HcQ"/>
+<div class="absolute top-3 left-3 px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant text-xs font-bold rounded-full">
+                                Upcoming
+                            </div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-1">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="text-xl font-bold text-on-surface">Azure Bay Retreat</h3>
+<div class="flex items-center text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-sm font-bold ml-1 text-on-surface">4.9</span>
+</div>
+</div>
+<div class="mt-2 flex items-center text-on-surface-variant gap-2 text-sm">
+<span class="material-symbols-outlined text-base">calendar_month</span>
+<span>Oct 12 - Oct 15</span>
+</div>
+<div class="mt-1 flex items-center text-on-surface-variant gap-2 text-sm">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span>Amalfi Coast, Italy</span>
+</div>
+</div>
+<div class="mt-6 flex gap-3">
+<button class="flex-1 py-2.5 bg-secondary text-white rounded-lg text-sm font-bold active:scale-95 transition-transform">View Details</button>
+<button class="p-2.5 outline outline-1 outline-outline-variant/30 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Booking Card 2: Completed -->
+<div class="bg-surface-container-lowest rounded-xl p-4 flex flex-col md:flex-row gap-6 shadow-sm hover:shadow-lg transition-shadow duration-300 group">
+<div class="relative w-full md:w-48 h-48 overflow-hidden rounded-lg opacity-90">
+<img alt="Urban Boutique Hotel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Sleek boutique hotel lobby with mid-century modern furniture and warm ambient lighting through large windows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDj_h4RCT3MDayC_t3XXIUZROFdjtLZMarqOEoDJ2yf7u5Z8JrseiX6pHvUVxLsGzZoF2WkdY_44zamGd5NRQcVG8jiCYTZm9Asll2qwnd8p8YgMES7wSQBg-eUiBmF3RC-3vYMU7xka6arNzhYlJH8AdN8bQwZhxoMDpcSWuWlVVVEJ2jwP24sPFhTBENA5TOzKT1HJTAOwbBo51mQ_dKj00iJxT6PMwBEO4GuMuDT0UqrOOFlR2naElvSnT3OijA6MJiS_fl2vv4D"/>
+<div class="absolute top-3 left-3 px-3 py-1 bg-surface-container-high text-on-surface-variant text-xs font-bold rounded-full">
+                                Completed
+                            </div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-1">
+<div>
+<h3 class="text-xl font-bold text-on-surface">The Grand Metropole</h3>
+<div class="mt-2 flex items-center text-on-surface-variant gap-2 text-sm">
+<span class="material-symbols-outlined text-base">calendar_month</span>
+<span>Sep 04 - Sep 07</span>
+</div>
+<div class="mt-1 flex items-center text-on-surface-variant gap-2 text-sm">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span>London, UK</span>
+</div>
+</div>
+<div class="mt-6 flex gap-3">
+<button class="flex-1 py-2.5 bg-primary text-white rounded-lg text-sm font-bold active:scale-95 transition-transform">Rebook</button>
+<button class="flex-1 py-2.5 bg-surface-container-low text-on-surface-variant rounded-lg text-sm font-bold hover:bg-surface-container transition-colors">Write Review</button>
+</div>
+</div>
+</div>
+<!-- Booking Card 3: Canceled -->
+<div class="bg-surface-container-lowest rounded-xl p-4 flex flex-col md:flex-row gap-6 shadow-sm hover:shadow-lg transition-shadow duration-300 group">
+<div class="relative w-full md:w-48 h-48 overflow-hidden rounded-lg grayscale">
+<img alt="Mountain Lodge" class="w-full h-full object-cover" data-alt="Cozy mountain cabin with snow-capped peaks in background during misty blue hour" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1p-irTWHJTQmhgaedItF9jqDqPZOoEqmYqYyYfmIKallLAh-4mPwOCBH8JUvqhdwxIdc3ISqzP7bES4yF6X6l_j3Zq_EssMnHw5qOVW3KCTNgONEXdqa0LXRcsmzmGRaT-PLqwfHorofqWbphQIwoZ1oOPg8Tk_tZ5oVubTtGM2W5GbN58yOslLBAf-OhXtP7HQr1MAKFzyYBHy2PzcvSkY9D5ouVyijxykJOD18WpEQ7pF0qF6U_K4iQxOXTl-DvQ-hMIHnyYMoc"/>
+<div class="absolute top-3 left-3 px-3 py-1 bg-error-container text-on-error-container text-xs font-bold rounded-full">
+                                Canceled
+                            </div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-1">
+<div>
+<h3 class="text-xl font-bold text-on-surface opacity-60">Silverpine Lodge</h3>
+<div class="mt-2 flex items-center text-on-surface-variant/60 gap-2 text-sm">
+<span class="material-symbols-outlined text-base">calendar_month</span>
+<span>Aug 12 - Aug 14</span>
+</div>
+<div class="mt-1 flex items-center text-on-surface-variant/60 gap-2 text-sm">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span>Aspen, Colorado</span>
+</div>
+</div>
+<div class="mt-6">
+<button class="w-full py-2.5 border border-outline-variant/40 text-on-surface-variant rounded-lg text-sm font-bold hover:bg-surface-container transition-colors">View Refund Status</button>
+</div>
+</div>
+</div>
+<!-- Recommended Module (Asymmetric layout) -->
+<div class="bg-primary-container text-on-primary-container rounded-xl p-8 flex flex-col justify-center relative overflow-hidden">
+<div class="absolute -right-12 -bottom-12 w-64 h-64 bg-secondary rounded-full opacity-10 blur-3xl"></div>
+<span class="text-tertiary-fixed font-bold tracking-widest text-[10px] uppercase mb-2">Member Exclusive</span>
+<h2 class="text-2xl font-bold mb-4 leading-tight">Ready for your next escape?</h2>
+<p class="text-on-primary-container/70 text-sm mb-6 max-w-xs">As a Platinum member, you have 3 unlocked upgrades for your next booking in Paris or Tokyo.</p>
+<button class="bg-white text-primary px-6 py-3 rounded-xl font-bold text-sm w-max active:scale-95 transition-transform">Explore Destinations</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-8 bg-slate-50 dark:bg-slate-900 border-none bg-surface-container-low mt-20">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-screen-2xl mx-auto font-sans text-sm">
+<div class="space-y-4">
+<div class="text-lg font-black text-slate-900 dark:text-white">The Elevated Voyager</div>
+<p class="text-slate-500 dark:text-slate-400">Defining the future of curated global travel and bespoke hospitality experiences.</p>
+</div>
+<div>
+<h5 class="font-bold text-slate-900 dark:text-white mb-4">Discover</h5>
+<ul class="space-y-2">
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline transition-colors cursor-pointer" href="#">Destinations</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline transition-colors cursor-pointer" href="#">Experiences</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline transition-colors cursor-pointer" href="#">FAQ</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold text-slate-900 dark:text-white mb-4">Company</h5>
+<ul class="space-y-2">
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline transition-colors cursor-pointer" href="#">About Us</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline transition-colors cursor-pointer" href="#">Privacy Policy</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline transition-colors cursor-pointer" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold text-slate-900 dark:text-white mb-4">Support</h5>
+<ul class="space-y-2">
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline transition-colors cursor-pointer" href="#">Contact</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 underline transition-colors cursor-pointer" href="#">Help Center</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-screen-2xl mx-auto mt-12 pt-8 border-t border-outline-variant/10">
+<p class="text-center text-slate-500 dark:text-slate-400">© 2024 The Elevated Voyager. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

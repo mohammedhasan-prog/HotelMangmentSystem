@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .no-line-rule { border: none !important; }
+        .tonal-shift-only { border: none !important; }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#ffdea0",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#adc6ff",
+                    "surface-container-high": "#eae7e7",
+                    "primary": "#031632",
+                    "secondary": "#0058bc",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#fefcff",
+                    "tertiary-container": "#392800",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#261a00",
+                    "error": "#ba1a1a",
+                    "outline": "#75777e",
+                    "surface-container-highest": "#e5e2e1",
+                    "surface-container": "#f0eded",
+                    "inverse-primary": "#b6c7eb",
+                    "on-primary-container": "#8293b5",
+                    "background": "#fcf9f8",
+                    "tertiary-fixed-dim": "#fbbc09",
+                    "primary-fixed-dim": "#b6c7eb",
+                    "surface-container-low": "#f6f3f2",
+                    "on-surface": "#1c1b1b",
+                    "secondary-fixed": "#d8e2ff",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fcf9f8",
+                    "inverse-on-surface": "#f3f0ef",
+                    "on-primary-fixed": "#081b38",
+                    "on-background": "#1c1b1b",
+                    "surface-variant": "#e5e2e1",
+                    "primary-fixed": "#d7e2ff",
+                    "on-secondary-fixed": "#001a41",
+                    "outline-variant": "#c5c6ce",
+                    "secondary-container": "#1070e8",
+                    "tertiary": "#1f1500",
+                    "on-tertiary-container": "#ba8a00",
+                    "surface-dim": "#dcd9d9",
+                    "primary-container": "#1a2b48",
+                    "surface": "#fcf9f8",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#44474d",
+                    "inverse-surface": "#313030",
+                    "on-primary-fixed-variant": "#374765",
+                    "on-tertiary-fixed-variant": "#5c4300",
+                    "surface-tint": "#4e5f7e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#004494"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-sm dark:shadow-none font-sans antialiased tracking-tight">
+<div class="flex justify-between items-center px-8 h-20 max-w-screen-2xl mx-auto">
+<div class="text-2xl font-bold tracking-tighter text-slate-900 dark:text-white">The Elevated Voyager</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-900 dark:text-white font-semibold border-b-2 border-blue-600 hover:text-blue-600 transition-colors duration-200" href="#">Hotels</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-blue-600 transition-colors duration-200" href="#">Bookings</a>
+<div class="flex items-center gap-4 ml-4">
+<div class="relative group">
+<input class="bg-surface-container rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-secondary/20 transition-all w-48 group-focus-within:w-64" placeholder="Search..." type="text"/>
+</div>
+<button class="active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-slate-900 dark:text-slate-50" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</nav>
+<button class="md:hidden">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</header>
+<main class="pt-24 pb-20 px-4 md:px-8 max-w-screen-2xl mx-auto">
+<!-- Search Summary & Sorting -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+<div>
+<nav class="flex items-center gap-2 text-xs font-label uppercase tracking-widest text-on-tertiary-fixed-variant mb-2">
+<span>Destinations</span>
+<span class="material-symbols-outlined text-[10px]" data-icon="chevron_right">chevron_right</span>
+<span>United Kingdom</span>
+<span class="material-symbols-outlined text-[10px]" data-icon="chevron_right">chevron_right</span>
+<span class="text-on-surface font-bold">London</span>
+</nav>
+<h1 class="text-3xl md:text-4xl font-headline font-extrabold tracking-tighter text-primary">
+                    124 hotels found in London
+                </h1>
+<p class="text-on-surface-variant font-medium mt-1">Oct 12-15 • 2 Adults • 1 Room</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-sm" data-icon="sort">sort</span>
+<select class="bg-surface-container-lowest border-none rounded-xl pl-10 pr-10 py-3 text-sm font-semibold appearance-none focus:ring-2 focus:ring-secondary/20 shadow-sm">
+<option>Sort by: Popularity</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+<option>Rating: Highest first</option>
+</select>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Sidebar Filters -->
+<aside class="lg:col-span-3 space-y-8 sticky top-28">
+<!-- Map Trigger -->
+<div class="relative rounded-xl overflow-hidden h-32 group cursor-pointer shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Stylized minimalist map layout of London city center with river Thames in soft blue tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACKclqT5D2sh4CgR7kdemW-qpWLtzAlxlKFED3fxUm10pXuDHhGP_P5GXXz9cXRqnYDiON_27-iGmxwFy3QL9jlE8S1WTHgCeVzJZdaXSzbSM5XMSFijMm2BhJmEPD0VOdY3g590s9WzjOJXE99bG3XtmauvTNN3JqYVXytYWaRF0Y8iUwUpCtqI7-S672zqLNR_q2VfPjzm3GYH-IHMZTy5WWtXrFMaCu7RAQHQmx0ILwYbBkozfmPY_uKYqFcPryLgnr1tJvHmRv"/>
+<div class="absolute inset-0 bg-primary/20 flex items-center justify-center">
+<div class="bg-surface text-primary px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 shadow-xl">
+<span class="material-symbols-outlined text-sm" data-icon="map">map</span>
+                            Show on Map
+                        </div>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-xl p-6 space-y-8">
+<!-- Price Range -->
+<section>
+<h3 class="text-sm font-bold uppercase tracking-wider text-primary mb-4">Price Range</h3>
+<div class="px-2">
+<div class="h-1 bg-surface-container-highest rounded-full relative mb-6">
+<div class="absolute left-[20%] right-[30%] h-full bg-secondary"></div>
+<div class="absolute left-[20%] -top-1.5 w-4 h-4 bg-secondary border-2 border-surface rounded-full shadow-md"></div>
+<div class="absolute right-[30%] -top-1.5 w-4 h-4 bg-secondary border-2 border-surface rounded-full shadow-md"></div>
+</div>
+<div class="flex justify-between items-center text-xs font-bold text-on-surface-variant">
+<span>£50</span>
+<span>£450+</span>
+</div>
+</div>
+</section>
+<!-- Star Rating -->
+<section>
+<h3 class="text-sm font-bold uppercase tracking-wider text-primary mb-4">Star Rating</h3>
+<div class="space-y-3">
+                            {[5, 4, 3, 2, 1].map(star =&gt; `
+                                <label class="flex items-center gap-3 cursor-pointer group">
+<div class="w-5 h-5 rounded bg-surface-container-lowest flex items-center justify-center group-hover:bg-secondary-container transition-colors">
+<input class="hidden" type="checkbox"/>
+<span class="material-symbols-outlined text-xs text-white opacity-0" data-icon="check">check</span>
+</div>
+<div class="flex items-center gap-0.5">
+                                        ${Array(star).fill(`<span class="material-symbols-outlined text-tertiary-fixed-dim text-lg" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>`).join('')}
+                                        ${Array(5-star).fill(`<span class="material-symbols-outlined text-outline-variant text-lg" data-icon="star">star</span>`).join('')}
+                                    </div>
+</label>
+                            `).join('')}
+                        </div>
+</section>
+<!-- Amenities -->
+<section>
+<h3 class="text-sm font-bold uppercase tracking-wider text-primary mb-4">Amenities</h3>
+<div class="space-y-3">
+                            {["Free WiFi", "Pool", "Gym", "Spa", "Pet Friendly", "Breakfast Included"].map(amenity =&gt; `
+                                <label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded border-none bg-surface-container-lowest text-secondary focus:ring-offset-0 focus:ring-secondary transition-all" type="checkbox"/>
+<span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">${amenity}</span>
+</label>
+                            `).join('')}
+                        </div>
+</section>
+<!-- Property Type -->
+<section>
+<h3 class="text-sm font-bold uppercase tracking-wider text-primary mb-4">Property Type</h3>
+<div class="space-y-3">
+                            {["Hotels", "Apartments", "Resorts", "Villas"].map(type =&gt; `
+                                <label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 border-none bg-surface-container-lowest text-secondary focus:ring-offset-0 focus:ring-secondary transition-all" name="prop_type" type="radio"/>
+<span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">${type}</span>
+</label>
+                            `).join('')}
+                        </div>
+</section>
+</div>
+</aside>
+<!-- Results List -->
+<div class="lg:col-span-9 space-y-6">
+<!-- Hotel Card 1 -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden flex flex-col md:flex-row group transition-all duration-300 hover:shadow-[0px_12px_32px_rgba(28,27,27,0.06)]">
+<div class="md:w-[40%] h-64 md:h-auto overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Luxurious grand hotel facade in London with elegant architecture and warm glowing windows at twilight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAObVhDoYjwbgMdEIyKPwOShJNtb-N2b2aruAyxTmkamandZjSJov3xfszU5rUGdvRkLdfno0pvFKfruw_TEjBTkxI7hmAjChpopvvRRofsHzHRsZ5d9HWHAQnI1cT5oh9RSfEeaQi0O-NffwrI7NadYwU6UONv1Pvt1TEWWWWbPlBpi8WCWHoGzDJFb4MYRJikQnUgNKadjVLolF3bPNhAREqc3kkBkQQfidCSi0YNBV2BtUXKaF3Xt4195B9vOUvBY_x7iVjP85k2"/>
+<button class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white p-2 rounded-full hover:bg-white hover:text-error transition-all active:scale-90">
+<span class="material-symbols-outlined text-xl" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="flex-1 p-6 md:p-8 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Premium Selection</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container px-3 py-1.5 rounded-lg">
+<div class="text-right">
+<p class="text-[10px] font-bold text-primary uppercase leading-none">Excellent</p>
+<p class="text-[10px] text-on-surface-variant">428 reviews</p>
+</div>
+<div class="bg-primary text-white font-bold px-2 py-1 rounded text-lg leading-tight">9.4</div>
+</div>
+</div>
+<h2 class="text-2xl font-headline font-bold text-primary mb-1">The Savoy Heritage Hotel</h2>
+<div class="flex items-center gap-1 text-on-surface-variant text-sm mb-4">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="location_on">location_on</span>
+<a class="hover:text-secondary underline decoration-secondary/30 underline-offset-4" href="#">Westminster, London • 0.2 miles from center</a>
+</div>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="text-xs font-semibold px-3 py-1 bg-surface-container-low rounded-full text-on-surface-variant">King Suite</span>
+<span class="text-xs font-semibold px-3 py-1 bg-surface-container-low rounded-full text-on-surface-variant">Breakfast included</span>
+<span class="text-xs font-semibold px-3 py-1 bg-surface-container-low rounded-full text-on-surface-variant">Free cancellation</span>
+</div>
+</div>
+<div class="flex items-end justify-between border-t border-surface-container pt-6">
+<div>
+<p class="text-xs text-on-surface-variant line-through mb-0.5">£520</p>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-black text-primary">£425</span>
+<span class="text-sm font-medium text-on-surface-variant">/night</span>
+</div>
+<p class="text-[10px] font-bold text-secondary uppercase tracking-tighter mt-1">+ £42 taxes and fees</p>
+</div>
+<button class="bg-primary text-on-primary px-8 py-4 rounded-xl font-bold active:scale-95 transition-all shadow-lg shadow-primary/10 hover:bg-primary/90">
+                                View Details
+                            </button>
+</div>
+</div>
+</article>
+<!-- Hotel Card 2 -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden flex flex-col md:flex-row group transition-all duration-300 hover:shadow-[0px_12px_32px_rgba(28,27,27,0.06)]">
+<div class="md:w-[40%] h-64 md:h-auto overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Modern boutique hotel interior with minimalist design large floor to ceiling windows and elegant blue velvet furniture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX_Pf9QH9A2eYLP1YPbeuzp3wa_ERmQVQH_PE2Fk0a_Md3hyhqeRN0xta_FAxIaQpoO4NO0Yt-ldz1njJCr0fhPW0aEbcNUfv-r-9xpvvxGo4ywO_dk3mz6a2xx2oMLvtbBLsvns7UM5mg5Vk_gaCtJDA9Wejp2eeKdIA2jLLKrUzYq7oFoopA73kuvzKDCKkmYARdhUmmVOxRZQ1hbw7DGMUL6ceDGJfe675WvqOcADNlTZfRgWaLdqKZ9H_Dfp42e-AumIy3FN_F"/>
+<button class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white p-2 rounded-full hover:bg-white hover:text-error transition-all active:scale-90">
+<span class="material-symbols-outlined text-xl" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="flex-1 p-6 md:p-8 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="bg-tertiary-fixed-dim/20 text-on-tertiary-fixed-variant text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Top Rated</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container px-3 py-1.5 rounded-lg">
+<div class="text-right">
+<p class="text-[10px] font-bold text-primary uppercase leading-none">Superb</p>
+<p class="text-[10px] text-on-surface-variant">1,102 reviews</p>
+</div>
+<div class="bg-primary text-white font-bold px-2 py-1 rounded text-lg leading-tight">8.9</div>
+</div>
+</div>
+<h2 class="text-2xl font-headline font-bold text-primary mb-1">The Shoreditch Loft</h2>
+<div class="flex items-center gap-1 text-on-surface-variant text-sm mb-4">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="location_on">location_on</span>
+<a class="hover:text-secondary underline decoration-secondary/30 underline-offset-4" href="#">Shoreditch, London • 1.5 miles from center</a>
+</div>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="text-xs font-semibold px-3 py-1 bg-surface-container-low rounded-full text-on-surface-variant">City View</span>
+<span class="text-xs font-semibold px-3 py-1 bg-surface-container-low rounded-full text-on-surface-variant">Smart TV</span>
+</div>
+</div>
+<div class="flex items-end justify-between border-t border-surface-container pt-6">
+<div>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-black text-primary">£189</span>
+<span class="text-sm font-medium text-on-surface-variant">/night</span>
+</div>
+<p class="text-[10px] font-bold text-secondary uppercase tracking-tighter mt-1">Limited Time Deal</p>
+</div>
+<button class="bg-primary text-on-primary px-8 py-4 rounded-xl font-bold active:scale-95 transition-all shadow-lg shadow-primary/10 hover:bg-primary/90">
+                                View Details
+                            </button>
+</div>
+</div>
+</article>
+<!-- Hotel Card 3 -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden flex flex-col md:flex-row group transition-all duration-300 hover:shadow-[0px_12px_32px_rgba(28,27,27,0.06)]">
+<div class="md:w-[40%] h-64 md:h-auto overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Breathtaking infinity pool at a luxury hotel overlooking the London skyline at sunset with golden light reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLoKDf40oc59brCxchUvSmT_LdRZKWGmZ_f1O2mtCCJV6qLEEgDErL_Zp39bfggkEE7elzaCpPrR3w-U8juIQuUSQLHqb34ywehv1p6XJueuvHY9B9uGvHIzH5Hls3rhKB1HrsiT49oFUhNL1g_AyZnNlPxTldBFFQaP1aXUiAAKOYx3t6DFStVa0ZSvr8XJdq5SThc_GBvrX4NDCWnhCNFF2BJgnmVjd0nX5PdM3GsPA0pQ6gr6u_uqVsaahULJvjHVTUDTeaTDs6"/>
+<button class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white p-2 rounded-full hover:bg-white hover:text-error transition-all active:scale-90">
+<span class="material-symbols-outlined text-xl" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="flex-1 p-6 md:p-8 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="bg-secondary-container text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Best Value</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container px-3 py-1.5 rounded-lg">
+<div class="text-right">
+<p class="text-[10px] font-bold text-primary uppercase leading-none">Very Good</p>
+<p class="text-[10px] text-on-surface-variant">856 reviews</p>
+</div>
+<div class="bg-primary text-white font-bold px-2 py-1 rounded text-lg leading-tight">8.5</div>
+</div>
+</div>
+<h2 class="text-2xl font-headline font-bold text-primary mb-1">Riverside Plaza Hotel</h2>
+<div class="flex items-center gap-1 text-on-surface-variant text-sm mb-4">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="location_on">location_on</span>
+<a class="hover:text-secondary underline decoration-secondary/30 underline-offset-4" href="#">Southbank, London • 0.5 miles from center</a>
+</div>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="text-xs font-semibold px-3 py-1 bg-surface-container-low rounded-full text-on-surface-variant">Pool &amp; Spa</span>
+<span class="text-xs font-semibold px-3 py-1 bg-surface-container-low rounded-full text-on-surface-variant">Fitness Center</span>
+</div>
+</div>
+<div class="flex items-end justify-between border-t border-surface-container pt-6">
+<div>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-black text-primary">£295</span>
+<span class="text-sm font-medium text-on-surface-variant">/night</span>
+</div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter mt-1">Inclusive of all fees</p>
+</div>
+<button class="bg-primary text-on-primary px-8 py-4 rounded-xl font-bold active:scale-95 transition-all shadow-lg shadow-primary/10 hover:bg-primary/90">
+                                View Details
+                            </button>
+</div>
+</div>
+</article>
+<!-- Pagination -->
+<div class="flex items-center justify-center gap-2 pt-10">
+<button class="w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container-low text-on-surface-variant hover:bg-secondary hover:text-white transition-all">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl bg-primary text-white font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container-low text-on-surface font-bold hover:bg-secondary hover:text-white transition-all">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container-low text-on-surface font-bold hover:bg-secondary hover:text-white transition-all">3</button>
+<span class="px-2 text-on-surface-variant">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container-low text-on-surface font-bold hover:bg-secondary hover:text-white transition-all">12</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container-low text-on-surface-variant hover:bg-secondary hover:text-white transition-all">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-8 bg-slate-50 dark:bg-slate-900">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-screen-2xl mx-auto">
+<div class="col-span-1 md:col-span-1">
+<div class="text-lg font-black text-slate-900 dark:text-white mb-6">The Elevated Voyager</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
+                    Curating exceptional stays for the discerning traveler. Beyond booking, we provide hospitality-first editorial experiences.
+                </p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-slate-400 hover:text-blue-600 cursor-pointer" data-icon="public">public</span>
+<span class="material-symbols-outlined text-slate-400 hover:text-blue-600 cursor-pointer" data-icon="share">share</span>
+<span class="material-symbols-outlined text-slate-400 hover:text-blue-600 cursor-pointer" data-icon="mail">mail</span>
+</div>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white mb-6">Company</h4>
+<ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-blue-600 underline" href="#">About Us</a></li>
+<li><a class="hover:text-blue-600 underline" href="#">Careers</a></li>
+<li><a class="hover:text-blue-600 underline" href="#">Press</a></li>
+<li><a class="hover:text-blue-600 underline" href="#">Contact</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white mb-6">Support</h4>
+<ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-blue-600 underline" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-blue-600 underline" href="#">Terms of Service</a></li>
+<li><a class="hover:text-blue-600 underline" href="#">FAQ</a></li>
+<li><a class="hover:text-blue-600 underline" href="#">Help Center</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white mb-6">Newsletter</h4>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Stay updated with our curated hotel lists and travel guides.</p>
+<div class="flex flex-col gap-2">
+<input class="bg-white dark:bg-slate-800 border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-600/20" placeholder="Your email" type="email"/>
+<button class="bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-colors">Subscribe</button>
+</div>
+</div>
+</div>
+<div class="max-w-screen-2xl mx-auto mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-sans text-sm text-slate-500 dark:text-slate-400">© 2024 The Elevated Voyager. All rights reserved.</p>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-xs font-bold text-slate-900 dark:text-white">
+<span class="material-symbols-outlined text-sm" data-icon="language">language</span>
+                    English (UK)
+                </div>
+<div class="flex items-center gap-2 text-xs font-bold text-slate-900 dark:text-white">
+<span class="material-symbols-outlined text-sm" data-icon="payments">payments</span>
+                    GBP (£)
+                </div>
+</div>
+</div>
+</footer>
+</body></html>

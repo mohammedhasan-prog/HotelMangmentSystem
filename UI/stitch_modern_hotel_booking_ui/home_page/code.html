@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Elevated Voyager | Luxury Stays</title>
+<!-- Inter Font for Editorial Voice -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#ffdea0",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#adc6ff",
+                    "surface-container-high": "#eae7e7",
+                    "primary": "#031632",
+                    "secondary": "#0058bc",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#fefcff",
+                    "tertiary-container": "#392800",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#261a00",
+                    "error": "#ba1a1a",
+                    "outline": "#75777e",
+                    "surface-container-highest": "#e5e2e1",
+                    "surface-container": "#f0eded",
+                    "inverse-primary": "#b6c7eb",
+                    "on-primary-container": "#8293b5",
+                    "background": "#fcf9f8",
+                    "tertiary-fixed-dim": "#fbbc09",
+                    "primary-fixed-dim": "#b6c7eb",
+                    "surface-container-low": "#f6f3f2",
+                    "on-surface": "#1c1b1b",
+                    "secondary-fixed": "#d8e2ff",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fcf9f8",
+                    "inverse-on-surface": "#f3f0ef",
+                    "on-primary-fixed": "#081b38",
+                    "on-background": "#1c1b1b",
+                    "surface-variant": "#e5e2e1",
+                    "primary-fixed": "#d7e2ff",
+                    "on-secondary-fixed": "#001a41",
+                    "outline-variant": "#c5c6ce",
+                    "secondary-container": "#1070e8",
+                    "tertiary": "#1f1500",
+                    "on-tertiary-container": "#ba8a00",
+                    "surface-dim": "#dcd9d9",
+                    "primary-container": "#1a2b48",
+                    "surface": "#fcf9f8",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#44474d",
+                    "inverse-surface": "#313030",
+                    "on-primary-fixed-variant": "#374765",
+                    "on-tertiary-fixed-variant": "#5c4300",
+                    "surface-tint": "#4e5f7e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#004494"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: rgba(252, 249, 248, 0.8);
+            backdrop-filter: blur(24px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 w-full z-50 glass-nav shadow-sm">
+<nav class="flex justify-between items-center px-8 h-20 max-w-screen-2xl mx-auto font-sans antialiased tracking-tight">
+<div class="text-2xl font-bold tracking-tighter text-slate-900">The Elevated Voyager</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-slate-900 font-semibold border-b-2 border-blue-600 hover:text-blue-600 transition-colors duration-200 py-1" href="#">Hotels</a>
+<a class="text-slate-500 font-medium hover:text-blue-600 transition-colors duration-200 py-1" href="#">Bookings</a>
+<a class="text-slate-500 font-medium hover:text-blue-600 transition-colors duration-200 py-1" href="#">Help</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:block px-4 py-2 text-sm font-semibold text-primary hover:text-secondary transition-colors">Sign In</button>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-xl font-semibold text-sm active:scale-95 transition-transform">Register</button>
+<span class="material-symbols-outlined text-slate-900 cursor-pointer p-2 rounded-full hover:bg-surface-container-high transition-colors">account_circle</span>
+</div>
+</nav>
+</header>
+<main class="pt-20">
+<!-- Hero Section: Intentional Asymmetry & Tonal Depth -->
+<section class="relative min-h-[870px] flex items-center justify-center overflow-hidden px-8">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="luxury resort infinity pool overlooking a tropical coastline at sunset with warm amber glow and misty purple horizons" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHYcFSE-VJ3GAHAjy2pDYi7K_q-rLnDkMjfUcStvrU-cm11fOT6qMEfp_w2sOPKZsHbTIpzYAFStRhw0_dkU2dc6232vBr5GtqzvcaIogG_8THtdBfmxsl2z8l9kRKbrIYeQkVsGj-pL_lxKRu219Sm1FhCHIqj4nQMgfNQsBZE8BiUOs02JF43gYdC9aascYnbvt0DulBx-m8TiekwiT4SUPjzkCFFt68HlCuGzfpAXatoK-F_fAuNZlvSP8ne4bPu8ITqJuuNMle"/>
+<div class="absolute inset-0 bg-primary/20 backdrop-brightness-75"></div>
+</div>
+<div class="relative z-10 w-full max-w-5xl text-center">
+<span class="inline-block text-tertiary-fixed-dim font-bold tracking-[0.2em] uppercase text-xs mb-4">Curated Experiences</span>
+<h1 class="text-5xl md:text-7xl font-bold text-white tracking-tighter mb-12 drop-shadow-lg leading-[0.9]">
+                    The World's Most <br/>Refined Sanctuaries.
+                </h1>
+<!-- Centered Search Bar: Floating Glass Module -->
+<div class="bg-white/90 backdrop-blur-xl p-3 md:p-4 rounded-[2rem] shadow-2xl flex flex-col md:flex-row gap-2 max-w-4xl mx-auto">
+<div class="flex-1 flex items-center gap-3 px-6 py-3 bg-surface-container-low rounded-2xl group transition-all focus-within:bg-white focus-within:ring-2 focus-within:ring-secondary/20">
+<span class="material-symbols-outlined text-outline">location_on</span>
+<input class="bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-outline w-full font-medium" placeholder="Where are you going?" type="text"/>
+</div>
+<div class="flex-1 flex items-center gap-3 px-6 py-3 bg-surface-container-low rounded-2xl group transition-all focus-within:bg-white focus-within:ring-2 focus-within:ring-secondary/20">
+<span class="material-symbols-outlined text-outline">calendar_today</span>
+<div class="flex flex-col text-left">
+<span class="text-[10px] uppercase font-bold tracking-wider text-outline leading-none">Check-in — Out</span>
+<span class="text-sm font-semibold">Select Dates</span>
+</div>
+</div>
+<div class="flex-1 flex items-center gap-3 px-6 py-3 bg-surface-container-low rounded-2xl group transition-all focus-within:bg-white focus-within:ring-2 focus-within:ring-secondary/20">
+<span class="material-symbols-outlined text-outline">group</span>
+<div class="flex flex-col text-left">
+<span class="text-[10px] uppercase font-bold tracking-wider text-outline leading-none">Guests &amp; Rooms</span>
+<span class="text-sm font-semibold">2 Guests, 1 Room</span>
+</div>
+</div>
+<button class="bg-secondary-container text-white px-8 py-4 rounded-2xl font-bold hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-secondary/20">
+                        Search
+                    </button>
+</div>
+</div>
+</section>
+<!-- Featured Hotels: Bento/Editorial Layout -->
+<section class="py-24 px-8 max-w-screen-2xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+<div class="max-w-2xl">
+<span class="text-tertiary-fixed-dim font-bold tracking-[0.2em] uppercase text-xs">Summer 2024 Collection</span>
+<h2 class="text-4xl font-bold tracking-tighter text-on-surface mt-2">Exceptional Properties for the Discerning Voyager</h2>
+</div>
+<a class="text-secondary font-bold flex items-center gap-2 group" href="#">
+                    Explore All Stays 
+                    <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Large Feature Card -->
+<div class="md:col-span-8 group relative overflow-hidden rounded-[2rem] bg-surface-container-lowest">
+<div class="aspect-[16/10] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="expansive minimalist modern hotel lobby with floor-to-ceiling windows showing mountain vista and sleek neutral furniture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3_49-BTVbfgV9q42Argb_fO_WpjpddbMz8Fs5F3_WYr5m3KJnXwVBYdK-OC3g9Wy3tbfk0v46U-rt8rBQF8uXsLlRme4fD5YCBFvV6EXe6lvybIPlGc2VExcVNHCU6nIHLNk9J98DWUhNi0vx34uILCVahtWUTZxmO-zeGnx6qHDQ1yD2C5tGXwhyliOt3oe_RHbLon4pLAf-jzdfDv_JXtGVYL1ZA5RoyMu1AzwNFCq0AUAxFAs3jAi3byntgDAK8WeorimsdUnz"/>
+</div>
+<div class="absolute top-6 left-6 flex gap-2">
+<span class="bg-white/90 backdrop-blur px-4 py-1.5 rounded-full text-xs font-bold text-primary shadow-sm">Boutique</span>
+<span class="bg-secondary text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-sm">Staff Pick</span>
+</div>
+<div class="p-8">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-2xl font-bold tracking-tight mb-1">Aman Tokyo Sanctuary</h3>
+<p class="text-on-surface-variant flex items-center gap-1 text-sm">
+<span class="material-symbols-outlined text-sm">location_on</span> Otemachi, Tokyo
+                                </p>
+</div>
+<div class="text-right">
+<div class="flex items-center gap-1 text-tertiary-fixed-dim mb-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">4.9</span>
+</div>
+<p class="text-xl font-black text-secondary">$840<span class="text-sm font-medium text-on-surface-variant">/night</span></p>
+</div>
+</div>
+</div>
+</div>
+<!-- Vertical Cards Container -->
+<div class="md:col-span-4 flex flex-col gap-8">
+<!-- Smaller Card 1 -->
+<div class="bg-surface-container-lowest rounded-[2rem] overflow-hidden group flex flex-col h-full">
+<div class="aspect-[4/3] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="ornate classic european hotel facade with blooming flower boxes and gold accents under clear blue sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3ZQ9mCjSczObeUBIM8nIZiL_OHXsBpZvRH7Z82kCYl9yG4dIp6bcPClpV9RgvMr2tjhY_8GV-LJj46algZtCAh2gaHVr86telOcGniSAUWJKh0tKOY1se0cg-Os2vfmSFrXEmfdmBtMx00p7ULJVg0_Z8Nr3ea49-3RQTnpyqRkxwgYPN6N03UaGDuQApjkPfbjeGBlTEVpxKdgylrHYhaRmKy6xisveConCAem71c_cfQrCVqk1nuJ5MifTdg9hv2hWm80KItZ9U"/>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold mb-1">Hôtel Plaza Athénée</h3>
+<p class="text-on-surface-variant text-sm mb-4">Paris, France</p>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-1 text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-on-surface">4.8</span>
+</div>
+<p class="text-lg font-black text-secondary">$1,200</p>
+</div>
+</div>
+</div>
+<!-- Smaller Card 2 -->
+<div class="bg-surface-container-lowest rounded-[2rem] overflow-hidden group flex flex-col h-full">
+<div class="aspect-[4/3] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="stunning coastal resort carved into cliffs with white stone architecture and multiple blue pool levels at dusk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhc-ign1Ois-KXFgi2WDpaGpd4V6vhzLGo5Q_BL3vRDC_pCcl8AktgHas8PW1K_TJiBOYyYpMqo8nLLAcTYmXNnk0L0Ymu8ahD8uQjVZqffpndV0CRp-0Jvo0FckqMkiQrZfvM4jEo79OZmB8ercHJ4PNv1YdEslkkpJOz1f_gUv3WRSuuyxuOGbihVKGuHE4j5a2FNiL0Vhkn2z5gL_BsJgzSEdgrTWuC6SjrSYLNt3BumUCzLqHSWJSiyPB2BG1VmeNPSeDGW6vV"/>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold mb-1">Canaves Oia Suites</h3>
+<p class="text-on-surface-variant text-sm mb-4">Santorini, Greece</p>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-1 text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-on-surface">5.0</span>
+</div>
+<p class="text-lg font-black text-secondary">$650</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Promotions Banner: Modern Glassmorphic Strip -->
+<section class="px-8 pb-24">
+<div class="max-w-screen-2xl mx-auto relative rounded-[2.5rem] overflow-hidden py-16 px-12 md:px-24">
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-gradient-to-r from-primary via-primary-container to-secondary"></div>
+<div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
+</div>
+<div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+<div class="text-white text-center md:text-left">
+<h2 class="text-4xl md:text-5xl font-black tracking-tight mb-4">Start Your Journey.</h2>
+<p class="text-xl text-on-primary-container font-medium max-w-md">Get 15% off your first stay when you book through our mobile concierge.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="bg-white text-primary px-10 py-4 rounded-2xl font-bold text-lg hover:bg-surface-bright transition-colors">Claim Offer</button>
+<button class="border border-white/30 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:bg-white/10 backdrop-blur transition-colors">Learn More</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-slate-50 dark:bg-slate-900 w-full py-12 px-8">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-screen-2xl mx-auto">
+<div class="space-y-4">
+<div class="text-lg font-black text-slate-900 dark:text-white">The Elevated Voyager</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                    Redefining the standard of luxury travel since 2024. Curated stays for the modern adventurer.
+                </p>
+<div class="flex gap-4 pt-2">
+<span class="material-symbols-outlined text-slate-500 hover:text-blue-600 cursor-pointer">public</span>
+<span class="material-symbols-outlined text-slate-500 hover:text-blue-600 cursor-pointer">share</span>
+<span class="material-symbols-outlined text-slate-500 hover:text-blue-600 cursor-pointer">mail</span>
+</div>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white mb-6">Company</h4>
+<ul class="space-y-4 text-sm font-sans text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-blue-600 underline" href="#">About Us</a></li>
+<li><a class="hover:text-blue-600 underline" href="#">Careers</a></li>
+<li><a class="hover:text-blue-600 underline" href="#">Press</a></li>
+<li><a class="hover:text-blue-600 underline" href="#">News</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white mb-6">Support</h4>
+<ul class="space-y-4 text-sm font-sans text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-blue-600 underline" href="#">Contact Support</a></li>
+<li><a class="hover:text-blue-600 underline" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-blue-600 underline" href="#">Terms of Service</a></li>
+<li><a class="hover:text-blue-600 underline" href="#">FAQ</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white mb-6">Newsletter</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm mb-4">Join our community for exclusive early access to new properties.</p>
+<div class="flex bg-white rounded-xl overflow-hidden shadow-sm border border-slate-200">
+<input class="px-4 py-2 w-full border-none focus:ring-0 text-sm" placeholder="Email address" type="email"/>
+<button class="bg-primary text-white px-4 py-2 text-xs font-bold">Join</button>
+</div>
+</div>
+</div>
+<div class="max-w-screen-2xl mx-auto mt-16 pt-8 border-t border-slate-200 text-center">
+<p class="text-slate-500 dark:text-slate-400 text-sm">© 2024 The Elevated Voyager. All rights reserved.</p>
+</div>
+</footer>
+</body></html>
