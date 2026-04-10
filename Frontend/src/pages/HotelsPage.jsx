@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Button, Chip, Stack } from '@mui/material';
+import { Button, Chip, Slider, Stack } from '@mui/material';
 import { FiChevronDown, FiChevronLeft, FiChevronRight, FiHeart, FiMapPin, FiSliders } from 'react-icons/fi';
 import { api } from '../lib/api';
 import { formatAmenityLabel } from '../lib/amenities';
@@ -18,6 +18,14 @@ function parsePhotos(raw) {
   return [];
 }
 
+function inferPropertyType(hotel) {
+  const combined = `${hotel?.name || ''} ${hotel?.description || ''}`.toLowerCase();
+  if (combined.includes('apartment') || combined.includes('residence')) return 'Apartments';
+  if (combined.includes('resort')) return 'Resorts';
+  if (combined.includes('villa')) return 'Villas';
+  return 'Hotels';
+}
+
 function HotelsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [hotels, setHotels] = useState([]);
@@ -29,6 +37,11 @@ function HotelsPage() {
   });
   const [loading, setLoading] = useState(true);
   const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [priceRange, setPriceRange] = useState([50, 450]);
+  const [selectedStars, setSelectedStars] = useState([]);
+  const [selectedAmenities, setSelectedAmenities] = useState([]);
+  const [selectedPropertyTypes, setSelectedPropertyTypes] = useState([]);
+  const [sortBy, setSortBy] = useState('popularity');
 
   const city = searchParams.get('city') || '';
   const page = Math.max(Number(searchParams.get('page') || 1), 1);
@@ -57,6 +70,105 @@ function HotelsPage() {
       })
       .finally(() => setLoading(false));
   }, [query]);
+
+  const normalizedHotels = useMemo(() => {
+    return hotels.map((hotel) => {
+      const roomPrices = (hotel.rooms || []).map((room) => Number(room.price || 0)).filter((price) => price > 0);
+      const minPrice = roomPrices.length ? Math.min(...roomPrices) : 0;
+      const amenities = Array.isArray(hotel.amenities) ? hotel.amenities : [];
+      return {
+        ...hotel,
+        minPrice,
+        propertyType: inferPropertyType(hotel),
+        normalizedAmenities: amenities,
+      };
+    });
+  }, [hotels]);
+
+  const priceBounds = useMemo(() => {
+    const prices = normalizedHotels.map((hotel) => hotel.minPrice).filter((value) => value > 0);
+    if (!prices.length) return { min: 50, max: 450 };
+    const min = Math.floor(Math.min(...prices) / 10) * 10;
+    const max = Math.ceil(Math.max(...prices) / 10) * 10;
+    return {
+      min: Math.max(0, min),
+      max: Math.max(min + 10, max),
+    };
+  }, [normalizedHotels]);
+
+  useEffect(() => {
+    setPriceRange([priceBounds.min, priceBounds.max]);
+  }, [priceBounds.min, priceBounds.max]);
+
+  const amenityOptions = useMemo(() => {
+    const seen = new Set();
+    normalizedHotels.forEach((hotel) => {
+      (hotel.normalizedAmenities || []).forEach((amenity) => {
+        if (typeof amenity === 'string' && amenity.trim()) {
+          seen.add(amenity.trim());
+        }
+      });
+    });
+    return Array.from(seen).slice(0, 10);
+  }, [normalizedHotels]);
+
+  const propertyTypeOptions = useMemo(() => {
+    const discovered = Array.from(new Set(normalizedHotels.map((hotel) => hotel.propertyType)));
+    if (!discovered.length) return ['Hotels', 'Apartments', 'Resorts', 'Villas'];
+    return discovered;
+  }, [normalizedHotels]);
+
+  const filteredHotels = useMemo(() => {
+    const [minSelected, maxSelected] = priceRange;
+    return normalizedHotels
+      .filter((hotel) => {
+        if (hotel.minPrice > 0 && (hotel.minPrice < minSelected || hotel.minPrice > maxSelected)) {
+          return false;
+        }
+
+        if (selectedStars.length) {
+          const wholeStar = Math.floor(Number(hotel.rating || 0));
+          if (!selectedStars.includes(wholeStar)) {
+            return false;
+          }
+        }
+
+        if (selectedAmenities.length) {
+          const hasAll = selectedAmenities.every((amenity) => hotel.normalizedAmenities.includes(amenity));
+          if (!hasAll) return false;
+        }
+
+        if (selectedPropertyTypes.length && !selectedPropertyTypes.includes(hotel.propertyType)) {
+          return false;
+        }
+
+        return true;
+      })
+      .sort((a, b) => {
+        if (sortBy === 'price-low') return a.minPrice - b.minPrice;
+        if (sortBy === 'price-high') return b.minPrice - a.minPrice;
+        if (sortBy === 'rating-high') return Number(b.rating || 0) - Number(a.rating || 0);
+        if (sortBy === 'name-asc') return String(a.name || '').localeCompare(String(b.name || ''));
+        return Number(b.rating || 0) - Number(a.rating || 0);
+      });
+  }, [normalizedHotels, priceRange, selectedStars, selectedAmenities, selectedPropertyTypes, sortBy]);
+
+  const toggleInList = (value, setList) => {
+    setList((prev) => (prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]));
+  };
+
+  const clearFilters = () => {
+    setSelectedStars([]);
+    setSelectedAmenities([]);
+    setSelectedPropertyTypes([]);
+    setPriceRange([priceBounds.min, priceBounds.max]);
+  };
+
+  const openCityOnMap = () => {
+    const target = city || shownCity;
+    const encoded = encodeURIComponent(target);
+    window.open(`https://www.google.com/maps/search/?api=1&query=${encoded}`, '_blank', 'noopener,noreferrer');
+  };
 
   const shownCity = city || 'London';
   const totalHotelsFound = pagination.total || hotels.length;
@@ -108,39 +220,96 @@ function HotelsPage() {
         <aside className="hl-filter-panel">
           <div className="hl-map-card">
             <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df" alt="Map view" />
-            <button type="button">Show on Map</button>
+            <button type="button" onClick={openCityOnMap}>Show on Map</button>
           </div>
 
           <div className="hl-filter-block">
             <h4>Price Range</h4>
-            <div className="hl-price-track"><span /><span /></div>
-            <div className="hl-price-row"><small>£50</small><small>£450+</small></div>
+            <div className="hl-price-slider">
+              <Slider
+                value={priceRange}
+                onChange={(_, nextValue) => setPriceRange(nextValue)}
+                min={priceBounds.min}
+                max={priceBounds.max}
+                valueLabelDisplay="auto"
+                disableSwap
+              />
+            </div>
+            <div className="hl-price-row"><small>£{priceRange[0]}</small><small>£{priceRange[1]}+</small></div>
           </div>
 
           <div className="hl-filter-block">
             <h4>Star Rating</h4>
-            <p>★ 5, 4, 3, 2, 1</p>
+            <div className="hl-filter-chip-set">
+              {[5, 4, 3, 2, 1].map((star) => (
+                <button
+                  key={star}
+                  type="button"
+                  className={`hl-filter-chip ${selectedStars.includes(star) ? 'active' : ''}`}
+                  onClick={() => toggleInList(star, setSelectedStars)}
+                >
+                  ★ {star}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="hl-filter-block">
             <h4>Amenities</h4>
-            <p>Free Wi-Fi, Pool, Gym, Spa, Pet Friendly, Breakfast Included</p>
+            <div className="hl-filter-chip-set">
+              {amenityOptions.map((amenity) => (
+                <button
+                  key={amenity}
+                  type="button"
+                  className={`hl-filter-chip ${selectedAmenities.includes(amenity) ? 'active' : ''}`}
+                  onClick={() => toggleInList(amenity, setSelectedAmenities)}
+                >
+                  {formatAmenityLabel(amenity)}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="hl-filter-block">
             <h4>Property Type</h4>
-            <p>Hotels, Apartments, Resorts, Villas</p>
+            <div className="hl-filter-chip-set">
+              {propertyTypeOptions.map((type) => (
+                <button
+                  key={type}
+                  type="button"
+                  className={`hl-filter-chip ${selectedPropertyTypes.includes(type) ? 'active' : ''}`}
+                  onClick={() => toggleInList(type, setSelectedPropertyTypes)}
+                >
+                  {type}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="hl-filter-actions">
+            <button type="button" onClick={clearFilters}>Reset Filters</button>
           </div>
         </aside>
 
         <section className="hl-results-zone">
           <div className="hl-sort-row">
-            <button type="button"><FiSliders size={13} /> Sort by: Popularity <FiChevronDown size={13} /></button>
+            <label>
+              <FiSliders size={13} />
+              <span>Sort by:</span>
+              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                <option value="popularity">Popularity</option>
+                <option value="rating-high">Top Rated</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="name-asc">Name: A to Z</option>
+              </select>
+              <FiChevronDown size={13} />
+            </label>
           </div>
 
           {loading ? <p>Loading hotels...</p> : (
             <div className="hl-list">
-              {hotels.map((hotel, index) => {
+              {filteredHotels.map((hotel, index) => {
                 const photos = parsePhotos(hotel.photos);
                 const image = photos[0] || 'https://images.unsplash.com/photo-1566073771259-6a8506099945';
                 const firstPrice = Number(hotel.rooms?.[0]?.price || 0);
@@ -180,6 +349,16 @@ function HotelsPage() {
                   </article>
                 );
               })}
+
+              {!filteredHotels.length && (
+                <article className="hl-listing-card hl-listing-empty">
+                  <div className="hl-info-wrap">
+                    <h3>No matches for selected filters</h3>
+                    <p>Try widening your price range or removing one of the selected filters.</p>
+                    <Button variant="outlined" color="inherit" onClick={clearFilters}>Clear Filters</Button>
+                  </div>
+                </article>
+              )}
             </div>
           )}
 

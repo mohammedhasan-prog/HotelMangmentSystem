@@ -24,6 +24,7 @@ html,
 body,
 #root {
   margin: 0;
+  height: 100%;
   min-height: 100%;
   font-family: Sora, Segoe UI, sans-serif;
   background:
@@ -31,6 +32,33 @@ body,
     radial-gradient(circle at 100% 20%, #e3eef9 0%, rgba(227, 238, 249, 0) 30%),
     linear-gradient(180deg, var(--bg-0), var(--bg-1));
   color: var(--text-strong);
+}
+
+body {
+  overflow: hidden;
+}
+
+.app-scrollbar-track {
+  right: 6px;
+  bottom: 8px;
+  top: 8px;
+  width: 10px;
+  border-radius: 999px;
+  background: rgba(15, 23, 33, 0.08);
+}
+
+.app-scrollbar-thumb {
+  border-radius: 999px;
+  background: linear-gradient(180deg, #0f766e 0%, #145a86 100%);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+}
+
+.app-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #0b5c56 0%, #124b70 100%);
+}
+
+.app-scrollbar-view {
+  overflow-x: hidden !important;
 }
 
 a {
@@ -537,7 +565,7 @@ a {
   border: 1px solid #dce5eb;
   border-radius: 28px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr auto;
+  grid-template-columns: minmax(220px, 1.05fr) minmax(320px, 1.3fr) minmax(170px, 0.8fr) auto;
   align-items: center;
   padding: 8px;
 }
@@ -547,7 +575,13 @@ a {
   gap: 8px;
   color: #64748b;
   padding: 10px 16px;
-  border-right: 1px solid #edf2f7;
+  border-right: 2px solid #cfd9e4;
+  min-width: 0;
+}
+
+.hp-search-city {
+  position: relative;
+  min-width: 0;
 }
 
 .hp-search-input {
@@ -557,10 +591,86 @@ a {
   font: inherit;
   outline: none;
   width: 100%;
+  min-width: 0;
 }
 
 .hp-search-input::placeholder {
   color: #64748b;
+}
+
+.hp-city-suggestions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 6px);
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 14px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.46), rgba(220, 236, 248, 0.28));
+  backdrop-filter: blur(16px) saturate(155%);
+  -webkit-backdrop-filter: blur(16px) saturate(155%);
+  box-shadow:
+    0 18px 34px rgba(15, 23, 33, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.22);
+  z-index: 12;
+  max-height: 240px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(20, 58, 90, 0.62) rgba(255, 255, 255, 0.12);
+}
+
+.hp-city-suggestions::-webkit-scrollbar {
+  width: 10px;
+}
+
+.hp-city-suggestions::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+}
+
+.hp-city-suggestions::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0.12)) padding-box,
+    linear-gradient(180deg, rgba(19, 77, 118, 0.86), rgba(17, 45, 73, 0.76)) border-box;
+}
+
+.hp-city-suggestions::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.56), rgba(255, 255, 255, 0.2)) padding-box,
+    linear-gradient(180deg, rgba(11, 58, 92, 0.95), rgba(10, 34, 57, 0.9)) border-box;
+}
+
+.hp-city-suggestions li + li {
+  margin-top: 4px;
+}
+
+.hp-city-suggestions button {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #10243a;
+  font-size: 0.96rem;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  font-weight: 700;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.42);
+  transition: background-color 140ms ease, color 140ms ease;
+  cursor: pointer;
+}
+
+.hp-city-suggestions button:hover,
+.hp-city-suggestions button.active {
+  background: rgba(223, 236, 247, 0.78);
+  color: #091b2e;
 }
 
 .hp-date-wrap,
@@ -569,6 +679,85 @@ a {
   align-items: center;
   gap: 6px;
   width: 100%;
+}
+
+.hp-date-wrap {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) auto minmax(120px, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+
+.hp-date-field {
+  min-width: 0;
+}
+
+.hp-date-field .MuiInputBase-root {
+  font: inherit;
+  color: #334155;
+  min-height: 24px;
+  width: 100%;
+}
+
+.hp-date-field .MuiInputBase-input {
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.hp-date-field .MuiInputAdornment-root {
+  margin-left: 6px;
+}
+
+.hp-date-field .MuiIconButton-root {
+  color: #4a5f76;
+  padding: 3px;
+}
+
+.hp-date-field .MuiSvgIcon-root {
+  width: 18px;
+  height: 18px;
+}
+
+.hp-glass-calendar .MuiPaper-root {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.78), rgba(229, 241, 250, 0.6));
+  backdrop-filter: blur(14px) saturate(135%);
+  box-shadow:
+    0 16px 34px rgba(15, 23, 33, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.hp-glass-calendar .MuiPickersCalendarHeader-label {
+  color: #0f2840;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.hp-glass-calendar .MuiDayCalendar-weekDayLabel {
+  color: #48627d;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.hp-glass-calendar .MuiPickersDay-root {
+  color: #172b43;
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+.hp-glass-calendar .MuiPickersDay-root:hover {
+  background: rgba(207, 224, 238, 0.72);
+}
+
+.hp-glass-calendar .Mui-selected {
+  background: linear-gradient(180deg, #1a6fb6, #15518d) !important;
+  box-shadow: 0 6px 16px rgba(22, 82, 140, 0.42);
+}
+
+.hp-glass-calendar .MuiButtonBase-root.MuiPickersDay-today {
+  border: 1px solid rgba(22, 82, 140, 0.65);
 }
 
 .hp-num-input {
@@ -873,6 +1062,7 @@ a {
   background: #fff;
   padding: 6px 10px;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .hl-filter-block {
@@ -890,6 +1080,50 @@ a {
   margin: 8px 0 0;
   color: #64748b;
   line-height: 1.45;
+}
+
+.hl-price-slider {
+  margin-top: 4px;
+  padding: 0 3px;
+}
+
+.hl-filter-chip-set {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hl-filter-chip {
+  border: 1px solid #dce5eb;
+  border-radius: 999px;
+  background: #fff;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+}
+
+.hl-filter-chip.active {
+  background: #0f766e;
+  color: #fff;
+  border-color: #0f766e;
+}
+
+.hl-filter-actions {
+  margin-top: 16px;
+}
+
+.hl-filter-actions button {
+  width: 100%;
+  min-height: 38px;
+  border-radius: 10px;
+  border: 1px solid #c4d3dd;
+  background: #f8fbfd;
+  font-weight: 700;
+  color: #1f2b3a;
+  cursor: pointer;
 }
 
 .hl-price-track {
@@ -929,7 +1163,7 @@ a {
   justify-content: flex-end;
 }
 
-.hl-sort-row button {
+.hl-sort-row label {
   border: 1px solid #dce5eb;
   border-radius: 12px;
   background: #fff;
@@ -939,6 +1173,22 @@ a {
   align-items: center;
   gap: 8px;
   font-weight: 700;
+}
+
+.hl-sort-row label span {
+  color: #334155;
+  font-size: 13px;
+}
+
+.hl-sort-row select {
+  border: 0;
+  background: transparent;
+  color: #0f1721;
+  font-weight: 700;
+  font-size: 13px;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
 }
 
 .hl-list {
@@ -955,6 +1205,14 @@ a {
   display: grid;
   grid-template-columns: 340px 1fr;
   overflow: hidden;
+}
+
+.hl-listing-empty {
+  grid-template-columns: 1fr;
+}
+
+.hl-listing-empty .hl-info-wrap {
+  padding: 26px;
 }
 
 .hl-image-wrap {
@@ -1565,6 +1823,11 @@ a {
   grid-template-columns: auto 1fr;
   gap: 12px;
   align-items: center;
+  overflow: hidden;
+}
+
+.profile-mini-card > div {
+  min-width: 0;
 }
 
 .avatar-circle {
@@ -1586,6 +1849,7 @@ a {
   margin: 2px 0 0;
   color: var(--text-subtle);
   font-size: 12px;
+  overflow-wrap: anywhere;
 }
 
 .profile-mini-card .MuiButton-root {

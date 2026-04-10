@@ -4,59 +4,69 @@ const prisma = require('../src/config/prisma');
 const json = (value) => JSON.stringify(value);
 
 const CITIES = [
-  'Dhaka',
-  'Chittagong',
-  'Sylhet',
-  'Rajshahi',
-  'Khulna',
-  'Barishal',
-  'Rangpur',
-  'Mymensingh',
-  'Coxs Bazar',
-  'Comilla',
-  'Narayanganj',
-  'Gazipur',
-  'Jessore',
-  'Bogura',
-  'Narsingdi',
-  'Tangail',
-  'Dinajpur',
-  'Pabna',
-  'Noakhali',
-  'Feni',
-  'Brahmanbaria',
-  'Kushtia',
-  'Chuadanga',
-  'Rangamati',
-  'Bandarban',
+  'Mumbai',
+  'Delhi',
+  'Bengaluru',
+  'Hyderabad',
+  'Chennai',
+  'Kolkata',
+  'Pune',
+  'Ahmedabad',
+  'Jaipur',
+  'Lucknow',
+  'Surat',
+  'Kochi',
+  'Goa',
+  'Udaipur',
+  'Chandigarh',
+  'Indore',
+  'Bhopal',
+  'Patna',
+  'Bhubaneswar',
+  'Varanasi',
+  'Amritsar',
+  'Guwahati',
+  'Mysuru',
+  'Coimbatore',
+  'Nagpur',
+  'Nashik',
+  'Visakhapatnam',
+  'Noida',
+  'Gurugram',
+  'Rishikesh',
 ];
 
 const DISTRICTS = [
-  'Central Avenue',
-  'Lake View Road',
-  'Sunset Drive',
-  'Emerald Square',
-  'Heritage Lane',
-  'Skyline Boulevard',
-  'Marina Point',
-  'Orchid Street',
-  'Maple Residency',
-  'Golden Circle',
-  'Pearl Crossing',
-  'Royal Garden',
-  'Crescent Heights',
-  'Palm Residency',
-  'Riverfront Walk',
-  'Tea Garden View',
-  'Executive Park',
-  'Bayfront Plaza',
-  'Hilltop Ridge',
-  'Harbor Point',
-  'Meadow Court',
-  'Urban Nest',
-  'Canal Side',
-  'Willow Residency',
-  'Lotus Promenade',
+  'Connaught Place',
+  'MG Road',
+  'Banjara Hills',
+  'Salt Lake',
+  'Koramangala',
+  'Marine Drive',
+  'Park Street',
+  'Civil Lines',
+  'Rajarhat',
+  'Saket District',
+  'Jubilee Hills',
+  'Powai',
+  'Bandra West',
+  'Andheri East',
+  'Nehru Place',
+  'Whitefield',
+  'Electronic City',
+  'Hinjawadi',
+  'Gachibowli',
+  'Alkapuri',
+  'Sector 18',
+  'Cyber City',
+  'Hazratganj',
+  'Mall Road',
+  'Candolim Beachfront',
+  'Lalbagh Corridor',
+  'Riverfront Promenade',
+  'Heritage Quarter',
+  'Lake Palace Road',
+  'Airport Expressway',
 ];
 
 const PREFIXES = [
@@ -158,19 +168,21 @@ function buildRooms(index) {
 }
 
 async function main() {
-  console.log('Adding 100 generated hotels with different locations...');
+  console.log('Adding 400 generated hotels across Indian cities...');
 
-  const hotelsToCreate = 100;
+  const hotelsToCreate = 400;
+  const existingHotelsCount = await prisma.hotel.count();
   let createdCount = 0;
 
   for (let index = 0; index < hotelsToCreate; index += 1) {
-    const hotelData = buildHotel(index);
+    const globalIndex = existingHotelsCount + index;
+    const hotelData = buildHotel(globalIndex);
 
     await prisma.hotel.create({
       data: {
         ...hotelData,
         rooms: {
-          create: buildRooms(index),
+          create: buildRooms(globalIndex),
         },
       },
     });

@@ -1,8 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { motion } from 'framer-motion';
-import { FiCalendar, FiGlobe, FiMail, FiMapPin, FiSearch, FiShare2, FiUsers } from 'react-icons/fi';
+import { FiCalendar, FiGlobe, FiMail, FiMapPin, FiShare2, FiUsers } from 'react-icons/fi';
+import dayjs from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { api } from '../lib/api';
 
 function parsePhotos(raw) {
@@ -21,6 +25,9 @@ function parsePhotos(raw) {
 function HomePage() {
   const navigate = useNavigate();
   const [hotels, setHotels] = useState([]);
+  const [searchCatalog, setSearchCatalog] = useState([]);
+  const [showCitySuggestions, setShowCitySuggestions] = useState(false);
+  const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
   const [searchForm, setSearchForm] = useState({
     city: '',
     checkIn: '',
@@ -34,6 +41,32 @@ function HomePage() {
       .then((data) => setHotels(data?.data?.hotels || []))
       .catch(() => setHotels([]));
   }, []);
+
+  useEffect(() => {
+    api.get('/hotels?limit=100&page=1')
+      .then((data) => setSearchCatalog(data?.data?.hotels || []))
+      .catch(() => setSearchCatalog([]));
+  }, []);
+
+  const citySuggestions = useMemo(() => {
+    const source = searchCatalog.length ? searchCatalog : hotels;
+    const typed = searchForm.city.trim().toLowerCase();
+
+    const unique = new Set();
+    source.forEach((hotel) => {
+      const cityLabel = typeof hotel?.city === 'string' ? hotel.city.trim() : '';
+      const locationLabel = typeof hotel?.location === 'string' ? hotel.location.trim() : '';
+      if (cityLabel) unique.add(cityLabel);
+      if (locationLabel) unique.add(locationLabel);
+    });
+
+    const allLabels = Array.from(unique);
+    if (!typed) return allLabels.slice(0, 8);
+
+    return allLabels
+      .filter((label) => label.toLowerCase().includes(typed))
+      .slice(0, 8);
+  }, [searchCatalog, hotels, searchForm.city]);
 
   const featuredHotel = hotels[0] || null;
   const secondaryHotels = hotels.slice(1, 3);
@@ -52,6 +85,49 @@ function HomePage() {
     navigate(`/hotels?${params.toString()}`);
   };
 
+  const applyCitySuggestion = (value) => {
+    setSearchForm((prev) => ({ ...prev, city: value }));
+    setShowCitySuggestions(false);
+    setActiveSuggestionIndex(-1);
+  };
+
+  const onCityInputKeyDown = (event) => {
+    if (!showCitySuggestions || !citySuggestions.length) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        onSearch();
+      }
+      return;
+    }
+
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      setActiveSuggestionIndex((prev) => (prev + 1) % citySuggestions.length);
+      return;
+    }
+
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      setActiveSuggestionIndex((prev) => (prev <= 0 ? citySuggestions.length - 1 : prev - 1));
+      return;
+    }
+
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      if (activeSuggestionIndex >= 0 && citySuggestions[activeSuggestionIndex]) {
+        applyCitySuggestion(citySuggestions[activeSuggestionIndex]);
+      } else {
+        onSearch();
+      }
+      return;
+    }
+
+    if (event.key === 'Escape') {
+      setShowCitySuggestions(false);
+      setActiveSuggestionIndex(-1);
+    }
+  };
+
   return (
     <div className="stack-lg hp-shell">
       <motion.section
@@ -66,31 +142,90 @@ function HomePage() {
           <h1>The World's Most Refined Sanctuaries.</h1>
 
           <div className="hp-search-strip">
-            <div>
+            <div className="hp-search-city">
               <FiMapPin size={14} />
               <input
                 className="hp-search-input"
                 value={searchForm.city}
-                onChange={(event) => setSearchForm((prev) => ({ ...prev, city: event.target.value }))}
+                onChange={(event) => {
+                  setSearchForm((prev) => ({ ...prev, city: event.target.value }));
+                  setShowCitySuggestions(true);
+                  setActiveSuggestionIndex(-1);
+                }}
+                onFocus={() => setShowCitySuggestions(true)}
+                onBlur={() => {
+                  window.setTimeout(() => {
+                    setShowCitySuggestions(false);
+                    setActiveSuggestionIndex(-1);
+                  }, 120);
+                }}
+                onKeyDown={onCityInputKeyDown}
                 placeholder="Where are you going?"
+                aria-label="Destination"
+                autoComplete="off"
               />
+              {showCitySuggestions && citySuggestions.length > 0 && (
+                <ul className="hp-city-suggestions" role="listbox" aria-label="Destination suggestions">
+                  {citySuggestions.map((suggestion, index) => (
+                    <li key={suggestion} role="presentation">
+                      <button
+                        type="button"
+                        role="option"
+                        aria-selected={index === activeSuggestionIndex}
+                        className={index === activeSuggestionIndex ? 'active' : ''}
+                        onMouseDown={() => applyCitySuggestion(suggestion)}
+                      >
+                        {suggestion}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
             <div>
               <FiCalendar size={14} />
               <div className="hp-date-wrap">
-                <input
-                  className="hp-search-input"
-                  type="date"
-                  value={searchForm.checkIn}
-                  onChange={(event) => setSearchForm((prev) => ({ ...prev, checkIn: event.target.value }))}
-                />
-                <span>-</span>
-                <input
-                  className="hp-search-input"
-                  type="date"
-                  value={searchForm.checkOut}
-                  onChange={(event) => setSearchForm((prev) => ({ ...prev, checkOut: event.target.value }))}
-                />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    value={searchForm.checkIn ? dayjs(searchForm.checkIn) : null}
+                    onChange={(value) => setSearchForm((prev) => ({
+                      ...prev,
+                      checkIn: value?.isValid?.() ? value.format('YYYY-MM-DD') : '',
+                    }))}
+                    format="MMM DD, YYYY"
+                    disablePast
+                    slots={{ openPickerIcon: FiCalendar }}
+                    slotProps={{
+                      popper: { className: 'hp-glass-calendar' },
+                      textField: {
+                        variant: 'standard',
+                        placeholder: 'Check in',
+                        className: 'hp-date-field',
+                        InputProps: { disableUnderline: true },
+                      },
+                    }}
+                  />
+                  <span>-</span>
+                  <DatePicker
+                    value={searchForm.checkOut ? dayjs(searchForm.checkOut) : null}
+                    onChange={(value) => setSearchForm((prev) => ({
+                      ...prev,
+                      checkOut: value?.isValid?.() ? value.format('YYYY-MM-DD') : '',
+                    }))}
+                    format="MMM DD, YYYY"
+                    minDate={searchForm.checkIn ? dayjs(searchForm.checkIn) : dayjs()}
+                    slots={{ openPickerIcon: FiCalendar }}
+                    slotProps={{
+                      popper: { className: 'hp-glass-calendar' },
+                      textField: {
+                        variant: 'standard',
+                        placeholder: 'Check out',
+                        className: 'hp-date-field',
+                        InputProps: { disableUnderline: true },
+                      },
+                    }}
+                  />
+                </LocalizationProvider>
               </div>
             </div>
             <div>
